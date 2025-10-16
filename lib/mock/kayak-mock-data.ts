@@ -15,7 +15,7 @@ export const KAYAK_MOCK_DATA: KayakReviewsResponse = {
    negativeComment: 'Nothing',
    siteName: 'Booking.com',
    localizedMonthYear: 'December 2024',
-   siteLink: 'https://booking.com',
+   siteLink: '',
    siteLogo: 'https://logos-world.net/wp-content/uploads/2021/02/Booking-Logo.png',
    internal: false,
    localizedScore: '8.0'
@@ -29,7 +29,7 @@ export const KAYAK_MOCK_DATA: KayakReviewsResponse = {
    negativeComment: 'Nothing',
    siteName: 'Agoda',
    localizedMonthYear: 'November 2024',
-   siteLink: 'https://agoda.com',
+   siteLink: '',
    siteLogo: 'https://logos-world.net/wp-content/uploads/2021/02/Agoda-Logo.png',
    internal: false,
    localizedScore: '9.0'
@@ -43,7 +43,7 @@ export const KAYAK_MOCK_DATA: KayakReviewsResponse = {
    negativeComment: 'WiFi was slow',
    siteName: 'Kayak',
    localizedMonthYear: 'October 2024',
-   siteLink: 'https://kayak.com',
+   siteLink: '',
    siteLogo: 'https://logos-world.net/wp-content/uploads/2021/02/Kayak-Logo.png',
    internal: false,
    localizedScore: '7.0'
@@ -57,7 +57,7 @@ export const KAYAK_MOCK_DATA: KayakReviewsResponse = {
    negativeComment: 'Breakfast could be better',
    siteName: 'Priceline',
    localizedMonthYear: 'September 2024',
-   siteLink: 'https://priceline.com',
+   siteLink: '',
    siteLogo: 'https://logos-world.net/wp-content/uploads/2021/02/Priceline-Logo.png',
    internal: false,
    localizedScore: '8.5'
@@ -71,7 +71,7 @@ export const KAYAK_MOCK_DATA: KayakReviewsResponse = {
    negativeComment: 'Nothing',
    siteName: 'HotelsCombined',
    localizedMonthYear: 'August 2024',
-   siteLink: 'https://hotelscombined.com',
+   siteLink: '',
    siteLogo: 'https://logos-world.net/wp-content/uploads/2021/02/HotelsCombined-Logo.png',
    internal: false,
    localizedScore: '9.5'

@@ -143,6 +143,12 @@ export default function ReviewsPage() {
     ));
   };
 
+  const handleAddReview = (newReview: Partial<KayakReview>) => {
+    if (newReview.id) {
+      setKayakReviews(prev => [newReview as KayakReview, ...prev]);
+    }
+  };
+
 
   return (
     <div className="min-h-screen bg-[#FFFDF6]">
@@ -227,6 +233,7 @@ export default function ReviewsPage() {
                 kayakReviews={kayakReviews}
                 loading={loading}
                 kayakLoading={kayakLoading}
+                onAddReview={handleAddReview}
               />
             </div>
           </div>
