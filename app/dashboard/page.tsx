@@ -40,6 +40,13 @@ export default function ManagerDashboard() {
     const [sortBy, setSortBy] = useState<string>("rating");
     const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
 
+    // Performance section filter states (separate from header)
+    const [performanceTimeRange, setPerformanceTimeRange] = useState("all");
+    const [performanceCity, setPerformanceCity] = useState<string>("all");
+    const [performancePropertyType, setPerformancePropertyType] = useState<string>("all");
+    const [performanceSortBy, setPerformanceSortBy] = useState<string>("rating");
+    const [performanceSortOrder, setPerformanceSortOrder] = useState<"asc" | "desc">("desc");
+
     // Sidebar state
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
@@ -128,7 +135,7 @@ export default function ManagerDashboard() {
                                 </div>
                                 <div className="flex items-center gap-3 mt-4 sm:mt-0">
                                     <Select value={timeRange} onValueChange={setTimeRange}>
-                                        <SelectTrigger className="w-40 bg-white border-gray-300">
+                                        <SelectTrigger className="w-40">
                                             <SelectValue placeholder="Time range" />
                                         </SelectTrigger>
                                         <SelectContent>
@@ -162,6 +169,7 @@ export default function ManagerDashboard() {
                     {/* Stats Overview */}
                     <StatsPage stats={dashboardStats} />
 
+
                     {/* Analytics Dashboard */}
                     <div className="bg-[#fffdf6]">
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -184,7 +192,7 @@ export default function ManagerDashboard() {
                             <div className="bg-white rounded-lg border border-gray-200 p-6 mb-6">
                                 <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                                     <div className="flex flex-col sm:flex-row gap-4">
-                                        <Select value={timeRange} onValueChange={setTimeRange}>
+                                        <Select value={performanceTimeRange} onValueChange={setPerformanceTimeRange}>
                                             <SelectTrigger className="w-full sm:w-40">
                                                 <SelectValue placeholder="Time Range" />
                                             </SelectTrigger>
@@ -196,7 +204,7 @@ export default function ManagerDashboard() {
                                             </SelectContent>
                                         </Select>
 
-                                        <Select value={selectedCity} onValueChange={setSelectedCity}>
+                                        <Select value={performanceCity} onValueChange={setPerformanceCity}>
                                             <SelectTrigger className="w-full sm:w-40">
                                                 <SelectValue placeholder="City" />
                                             </SelectTrigger>
@@ -208,7 +216,7 @@ export default function ManagerDashboard() {
                                             </SelectContent>
                                         </Select>
 
-                                        <Select value={selectedPropertyType} onValueChange={setSelectedPropertyType}>
+                                        <Select value={performancePropertyType} onValueChange={setPerformancePropertyType}>
                                             <SelectTrigger className="w-full sm:w-40">
                                                 <SelectValue placeholder="Property Type" />
                                             </SelectTrigger>
@@ -224,7 +232,7 @@ export default function ManagerDashboard() {
                                     <div className="flex items-center gap-4">
                                         <div className="flex items-center gap-2">
                                             <span className="text-sm text-gray-600">Sort by:</span>
-                                            <Select value={sortBy} onValueChange={setSortBy}>
+                                            <Select value={performanceSortBy} onValueChange={setPerformanceSortBy}>
                                                 <SelectTrigger className="w-32">
                                                     <SelectValue />
                                                 </SelectTrigger>
@@ -240,9 +248,9 @@ export default function ManagerDashboard() {
                                         <Button
                                             variant="outline"
                                             size="sm"
-                                            onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
+                                            onClick={() => setPerformanceSortOrder(performanceSortOrder === "asc" ? "desc" : "asc")}
                                         >
-                                            {sortOrder === "asc" ? "↑" : "↓"}
+                                            {performanceSortOrder === "asc" ? "↑" : "↓"}
                                         </Button>
                                     </div>
                                 </div>
@@ -315,11 +323,10 @@ export default function ManagerDashboard() {
                                                         {property.totalReviews}
                                                     </td>
                                                     <td className="px-6 py-4 whitespace-nowrap">
-                                                        <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                                                            property.status === 'Active' 
-                                                                ? 'bg-green-100 text-green-800' 
-                                                                : 'bg-red-100 text-red-800'
-                                                        }`}>
+                                                        <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${property.status === 'Active'
+                                                            ? 'bg-green-100 text-green-800'
+                                                            : 'bg-red-100 text-red-800'
+                                                            }`}>
                                                             {property.status}
                                                         </span>
                                                     </td>
