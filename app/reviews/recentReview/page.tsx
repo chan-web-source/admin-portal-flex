@@ -23,9 +23,9 @@ export default function RecentReviews({ kayakReviews, loading, kayakLoading }: R
        <RefreshCw className="h-6 w-6 animate-spin text-blue-600 mr-2" />
        <span className="text-gray-600">Loading Kayak reviews...</span>
       </div>
-     ) : kayakReviews.length > 0 ? (
+     ) : kayakReviews?.length > 0 ? (
       <div className="grid gap-4">
-       {kayakReviews.map((review: KayakReview, index: number) => (
+       {kayakReviews?.map((review: KayakReview, index: number) => (
         <div key={review.id} className="bg-white rounded-lg shadow-lg p-4 hover:shadow-xl transition-shadow">
          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-3 gap-3">
           <div className="flex items-center space-x-3">
