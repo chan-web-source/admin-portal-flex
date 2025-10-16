@@ -172,6 +172,166 @@ export default function ManagerDashboard() {
                         </div>
                     </div>
 
+                    {/* Per-Property Performance Section */}
+                    <div className="bg-[#fffdf6]">
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                            <div className="mb-6">
+                                <h2 className="text-2xl font-bold text-gray-900 mb-2">Per-Property Performance</h2>
+                                <p className="text-sm text-gray-600">See per-property performance - Filter or sort by rating, category, channel, or time</p>
+                            </div>
+
+                            {/* Performance Filters */}
+                            <div className="bg-white rounded-lg border border-gray-200 p-6 mb-6">
+                                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                                    <div className="flex flex-col sm:flex-row gap-4">
+                                        <Select value={timeRange} onValueChange={setTimeRange}>
+                                            <SelectTrigger className="w-full sm:w-40">
+                                                <SelectValue placeholder="Time Range" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="all">All Time</SelectItem>
+                                                <SelectItem value="7d">Last 7 days</SelectItem>
+                                                <SelectItem value="30d">Last 30 days</SelectItem>
+                                                <SelectItem value="90d">Last 3 months</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+
+                                        <Select value={selectedCity} onValueChange={setSelectedCity}>
+                                            <SelectTrigger className="w-full sm:w-40">
+                                                <SelectValue placeholder="City" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="all">All Cities</SelectItem>
+                                                <SelectItem value="London">London</SelectItem>
+                                                <SelectItem value="Paris">Paris</SelectItem>
+                                                <SelectItem value="Algiers">Algiers</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+
+                                        <Select value={selectedPropertyType} onValueChange={setSelectedPropertyType}>
+                                            <SelectTrigger className="w-full sm:w-40">
+                                                <SelectValue placeholder="Property Type" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="all">All Types</SelectItem>
+                                                <SelectItem value="Apartment">Apartment</SelectItem>
+                                                <SelectItem value="Studio">Studio</SelectItem>
+                                                <SelectItem value="House">House</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+
+                                    <div className="flex items-center gap-4">
+                                        <div className="flex items-center gap-2">
+                                            <span className="text-sm text-gray-600">Sort by:</span>
+                                            <Select value={sortBy} onValueChange={setSortBy}>
+                                                <SelectTrigger className="w-32">
+                                                    <SelectValue />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectItem value="rating">Rating</SelectItem>
+                                                    <SelectItem value="revenue">Revenue</SelectItem>
+                                                    <SelectItem value="occupancy">Occupancy</SelectItem>
+                                                    <SelectItem value="reviews">Reviews</SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                        </div>
+
+                                        <Button
+                                            variant="outline"
+                                            size="sm"
+                                            onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
+                                        >
+                                            {sortOrder === "asc" ? "↑" : "↓"}
+                                        </Button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Performance Charts */}
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                                {/* Revenue Performance Chart */}
+                                <div className="bg-white rounded-lg border border-gray-200 p-6">
+                                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Revenue Performance</h3>
+                                    <div className="h-64 flex items-center justify-center">
+                                        <div className="text-center">
+                                            <div className="text-4xl font-bold text-blue-600 mb-2">£{filteredProperties.reduce((sum, p) => sum + p.revenue, 0).toLocaleString()}</div>
+                                            <div className="text-sm text-gray-600">Total Revenue ({filteredProperties.length} properties)</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Rating Distribution Chart */}
+                                <div className="bg-white rounded-lg border border-gray-200 p-6">
+                                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Rating Distribution</h3>
+                                    <div className="h-64 flex items-center justify-center">
+                                        <div className="text-center">
+                                            <div className="text-4xl font-bold text-green-600 mb-2">{(filteredProperties.reduce((sum, p) => sum + p.rating, 0) / filteredProperties.length).toFixed(1)}</div>
+                                            <div className="text-sm text-gray-600">Average Rating</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Performance Metrics Table */}
+                            <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+                                <div className="px-6 py-4 border-b border-gray-200">
+                                    <h3 className="text-lg font-semibold text-gray-900">Performance Metrics</h3>
+                                </div>
+                                <div className="overflow-x-auto">
+                                    <table className="w-full">
+                                        <thead className="bg-gray-50">
+                                            <tr>
+                                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Property</th>
+                                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rating</th>
+                                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Revenue</th>
+                                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Occupancy</th>
+                                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Reviews</th>
+                                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="bg-white divide-y divide-gray-200">
+                                            {filteredProperties.map((property) => (
+                                                <tr key={property.id} className="hover:bg-gray-50">
+                                                    <td className="px-6 py-4 whitespace-nowrap">
+                                                        <div>
+                                                            <div className="text-sm font-medium text-gray-900">{property.name}</div>
+                                                            <div className="text-sm text-gray-500">{property.location}</div>
+                                                        </div>
+                                                    </td>
+                                                    <td className="px-6 py-4 whitespace-nowrap">
+                                                        <div className="flex items-center">
+                                                            <span className="text-sm font-medium text-gray-900">{property.rating}</span>
+                                                            <span className="text-xs text-gray-500 ml-1">/5</span>
+                                                        </div>
+                                                    </td>
+                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                                        £{property.revenue.toLocaleString()}
+                                                    </td>
+                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                                        {property.occupancyRate}%
+                                                    </td>
+                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                                        {property.totalReviews}
+                                                    </td>
+                                                    <td className="px-6 py-4 whitespace-nowrap">
+                                                        <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                                                            property.status === 'Active' 
+                                                                ? 'bg-green-100 text-green-800' 
+                                                                : 'bg-red-100 text-red-800'
+                                                        }`}>
+                                                            {property.status}
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     {/* Insights Section */}
                     <InsightsPage />
 

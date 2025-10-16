@@ -27,11 +27,6 @@ export function FlexPanel({ isOpen, onToggle }: FlexPanelProps) {
             href: "/reviews",
             icon: MessageSquare,
         },
-        {
-            name: "Google Reviews",
-            href: "/dashboard",
-            icon: Star,
-        },
     ];
 
     return (

@@ -79,3 +79,39 @@ export interface ReviewAnalytics {
         priority: string;
     }>;
 }
+
+// Kayak API Types
+export interface KayakReview {
+    id: string;
+    localizedMonthYear: string;
+    score: number;
+    localizedRatingCategory: string;
+    positiveComment: string;
+    negativeComment: string;
+    author: string;
+    siteLink: string;
+    siteName: string;
+    siteLogo: string;
+    internal: boolean;
+    localizedScore: string;
+}
+
+export interface KayakReviewsResponse {
+    reviewCount: number;
+    reviews: KayakReview[];
+}
+
+export interface FetchKayakReviewsParams {
+    travelerTypes?: string;
+    months?: string;
+    tagClusterName?: string;
+    searchText?: string;
+    reviewSources?: string;
+    sortType?: string;
+    includeReviewLink?: boolean;
+    reviewType?: string;
+    objectId?: string;
+    includeObjectId?: boolean;
+    startIndex?: number;
+    amount?: number;
+}
