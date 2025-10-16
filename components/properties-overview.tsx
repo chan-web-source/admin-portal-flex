@@ -405,13 +405,12 @@ export function PropertiesOverview({
         return Array.from({ length: 5 }, (_, i) => (
             <Star
                 key={i}
-                className={`h-4 w-4 ${
-                    i < Math.floor(rating)
+                className={`h-4 w-4 ${i < Math.floor(rating)
                         ? "fill-yellow-400 text-yellow-400"
                         : i < rating
-                        ? "fill-yellow-200 text-yellow-400"
-                        : "text-gray-300"
-                }`}
+                            ? "fill-yellow-200 text-yellow-400"
+                            : "text-gray-300"
+                    }`}
             />
         ));
     };
@@ -474,11 +473,10 @@ export function PropertiesOverview({
                                 }
                                 size="sm"
                                 onClick={() => setViewMode("grid")}
-                                className={`rounded-none ${
-                                    viewMode === "grid"
+                                className={`rounded-none ${viewMode === "grid"
                                         ? "bg-[#284E4C] text-white hover:bg-[#1a332f]"
                                         : "text-[#284E4C] hover:bg-[#284E4C]/10"
-                                }`}
+                                    }`}
                             >
                                 <Grid3X3 className="h-4 w-4" />
                             </Button>
@@ -488,11 +486,10 @@ export function PropertiesOverview({
                                 }
                                 size="sm"
                                 onClick={() => setViewMode("list")}
-                                className={`rounded-none ${
-                                    viewMode === "list"
+                                className={`rounded-none ${viewMode === "list"
                                         ? "bg-[#284E4C] text-white hover:bg-[#1a332f]"
                                         : "text-[#284E4C] hover:bg-[#284E4C]/10"
-                                }`}
+                                    }`}
                             >
                                 <List className="h-4 w-4" />
                             </Button>
@@ -502,11 +499,10 @@ export function PropertiesOverview({
                                 }
                                 size="sm"
                                 onClick={() => setViewMode("map")}
-                                className={`rounded-none ${
-                                    viewMode === "map"
+                                className={`rounded-none ${viewMode === "map"
                                         ? "bg-[#284E4C] text-white hover:bg-[#1a332f]"
                                         : "text-[#284E4C] hover:bg-[#284E4C]/10"
-                                }`}
+                                    }`}
                             >
                                 <Map className="h-4 w-4" />
                             </Button>
@@ -577,11 +573,10 @@ export function PropertiesOverview({
                 </div>
             ) : (
                 <div
-                    className={`grid gap-6 mb-12 ${
-                        viewMode === "grid"
+                    className={`grid gap-6 mb-12 ${viewMode === "grid"
                             ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
                             : "grid-cols-1"
-                    }`}
+                        }`}
                 >
                     {filteredProperties.map((property) => (
                         <Card
@@ -616,11 +611,10 @@ export function PropertiesOverview({
                                         className="absolute top-4 right-4 p-2 bg-white/90 hover:bg-white rounded-full shadow-md transition-colors"
                                     >
                                         <Heart
-                                            className={`h-4 w-4 ${
-                                                likedProperties.has(property.id)
+                                            className={`h-4 w-4 ${likedProperties.has(property.id)
                                                     ? "fill-red-500 text-red-500"
                                                     : "text-gray-600"
-                                            }`}
+                                                }`}
                                         />
                                     </button>
 
@@ -775,7 +769,7 @@ export function PropertiesOverview({
             {/* View All Button */}
             {!showAll && (
                 <div className="text-center">
-                    <Link href="/properties">
+                    <Link href="/">
                         <Button
                             size="lg"
                             className="bg-[#284E4C] hover:bg-[#284E4C]/90 text-white"

@@ -8,13 +8,13 @@ export function FlexFooter() {
                 <div className="text-center">
                     <div className="flex justify-center space-x-6 mb-4">
                         <Link
-                            href="/terms"
+                            href="/"
                             className="text-gray-200 hover:text-white text-sm"
                         >
                             Terms & Conditions
                         </Link>
                         <Link
-                            href="/privacy"
+                            href="/"
                             className="text-gray-200 hover:text-white text-sm"
                         >
                             Privacy Policy
