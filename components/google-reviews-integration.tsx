@@ -6,7 +6,6 @@ import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Star, MapPin, AlertCircle } from "lucide-react"
-import { Alert, AlertDescription } from "@/components/ui/alert"
 
 interface GoogleReviewsIntegrationProps {
   onReviewsImported?: (reviews: any[]) => void
@@ -72,14 +71,6 @@ export function GoogleReviewsIntegration({ onReviewsImported }: GoogleReviewsInt
             </Button>
           </div>
 
-          <Alert>
-            <AlertCircle className="h-4 w-4" />
-            <AlertDescription>
-              <strong>Demo Mode:</strong> Google Reviews integration is temporarily disabled. The system is fully
-              implemented and ready to use once you configure the GOOGLE_PLACES_API_KEY environment variable.
-            </AlertDescription>
-          </Alert>
-
           {results && (
             <div className="space-y-4">
               <Card>
@@ -115,9 +106,8 @@ export function GoogleReviewsIntegration({ onReviewsImported }: GoogleReviewsInt
                             {[...Array(5)].map((_, i) => (
                               <Star
                                 key={i}
-                                className={`h-3 w-3 ${
-                                  i < review.rating ? "fill-yellow-400 text-yellow-400" : "text-gray-300"
-                                }`}
+                                className={`h-3 w-3 ${i < review.rating ? "fill-yellow-400 text-yellow-400" : "text-gray-300"
+                                  }`}
                               />
                             ))}
                           </div>
@@ -133,18 +123,7 @@ export function GoogleReviewsIntegration({ onReviewsImported }: GoogleReviewsInt
         </CardContent>
       </Card>
 
-      <Alert>
-        <AlertCircle className="h-4 w-4" />
-        <AlertDescription>
-          <strong>Setup Required:</strong> To enable Google Reviews integration, you need:
-          <ul className="list-disc list-inside mt-2 space-y-1">
-            <li>Google Cloud Platform account with billing enabled</li>
-            <li>Places API (New) enabled in your project</li>
-            <li>Valid API key with Places API permissions</li>
-            <li>GOOGLE_PLACES_API_KEY environment variable configured</li>
-          </ul>
-        </AlertDescription>
-      </Alert>
+
     </div>
   )
 }
