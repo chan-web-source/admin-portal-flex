@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+
+export const dynamic = 'force-dynamic';
 import { FlexHeader } from "@/components/flex-header";
 import { FlexPanel } from "@/components/flex-panel";
 import { FlexFooter } from "@/components/flex-footer";

@@ -1,15 +1,17 @@
 "use client";
 
 import { useState } from "react";
+
+export const dynamic = 'force-dynamic';
 import { FlexHeader } from "@/components/flex-header";
 import { FlexPanel } from "@/components/flex-panel";
 import { FlexFooter } from "@/components/flex-footer";
 import { Button } from "@/components/ui/button";
 import { RefreshCw, Download } from "lucide-react";
-import ReviewsFilters from "./filters/page";
-import ReviewsGrid from "./grid/page";
-import ReviewsStats from "./stats/page";
-import DisplayInfo from "./display-info/page";
+import ReviewsFilters from "./_components/ReviewsFilters";
+import ReviewsGrid from "./_components/ReviewsGrid";
+import ReviewsStats from "./_components/ReviewsStats";
+import DisplayInfo from "./_components/DisplayInfo";
 import { mockReviews } from "../../lib/mock-dashboard-data";
 import type { ReviewData } from "../../types/dashboard";
 

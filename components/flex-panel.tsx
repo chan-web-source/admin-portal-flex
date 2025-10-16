@@ -29,7 +29,7 @@ export function FlexPanel({ isOpen, onToggle }: FlexPanelProps) {
         },
         {
             name: "Google Reviews",
-            href: "/",
+            href: "/dashboard",
             icon: Star,
         },
     ];

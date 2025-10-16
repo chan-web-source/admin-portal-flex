@@ -1,5 +1,7 @@
 "use client";
 
+export const dynamic = 'force-dynamic';
+
 import { Card, CardContent } from "@/components/ui/card";
 import {
  DollarSign,
@@ -15,6 +17,9 @@ interface StatsPageProps {
 }
 
 export default function StatsPage({ stats }: StatsPageProps) {
+ if (!stats) {
+  return null;
+ }
  return (
   <div className="bg-[#fffdf6] shadow-lg border-b border-gray-200">
    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -27,7 +32,7 @@ export default function StatsPage({ stats }: StatsPageProps) {
         </div>
         <div className="ml-4">
          <p className="text-sm font-medium text-gray-600">Total Revenue</p>
-         <p className="text-2xl font-bold text-gray-900">£{stats.totalRevenue.toLocaleString()}</p>
+         <p className="text-2xl font-bold text-gray-900">£{stats?.totalRevenue?.toLocaleString()}</p>
          <p className="text-sm text-green-600 flex items-center">
           <ArrowUpRight className="h-3 w-3 mr-1" />
           +{stats.revenueChange}%
