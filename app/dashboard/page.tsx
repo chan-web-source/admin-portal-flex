@@ -114,7 +114,8 @@ export default function ManagerDashboard() {
                 <FlexPanel isOpen={isSidebarOpen} onToggle={toggleSidebar} />
 
                 {/* Main Content */}
-                <div className="flex-1 lg:ml-64">
+                <div className={`flex-1 transition-all duration-300 ease-in-out ${isSidebarOpen ? 'lg:ml-64' : 'lg:ml-0'
+                    }`}>
                     {/* Dashboard Header */}
                     <div className="bg-[#fffdf6] shadow-lg border-b border-gray-200">
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
