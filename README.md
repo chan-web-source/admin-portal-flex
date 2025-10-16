@@ -11,7 +11,6 @@ A comprehensive property management dashboard built with Next.js, React, and Typ
 ## Features
 
 - **Dashboard Overview**: Comprehensive property management dashboard with analytics
-- **Property Management**: Add, edit, and manage property listings
 - **Review Management**: Moderate and approve guest reviews
 - **Analytics**: Detailed performance metrics and insights
 - **API Integration**: Fetch and display reviews from Kayak API
