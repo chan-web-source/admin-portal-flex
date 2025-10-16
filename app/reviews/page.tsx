@@ -43,71 +43,8 @@ export default function ReviewsPage() {
   };
   // Fetch Kayak reviews on component mount
   useEffect(() => {
-    console.log('🚀 useEffect triggered - component mounted');
-
-    const fetchKayakData = async () => {
-      try {
-        console.log('🔍 Starting Kayak API call on page load...');
-
-        // Use the imported fetchReviews function
-        const kayakParams: FetchKayakReviewsParams = {
-          travelerTypes: '',
-          months: '',
-          tagClusterName: '',
-          searchText: '',
-          reviewSources: 'BOOKING,AGODA,PRICELINE,HOTELSCOMBINED,KAYAK',
-          sortType: 'recent',
-          includeReviewLink: true,
-          reviewType: 'hotel',
-          objectId: '12222',
-          includeObjectId: false,
-          startIndex: 0,
-          amount: 10
-        };
-
-        console.log('📡 Calling fetchReviews with params:', kayakParams);
-        console.log('🔧 About to call fetchReviews function...');
-        const kayakData = await fetchReviews(kayakParams);
-        console.log('✅ fetchReviews completed successfully');
-
-        console.log('✅ Kayak API Response on page load:', {
-          reviewCount: kayakData.reviewCount,
-          reviewsLength: kayakData.reviews?.length || 0,
-          firstReview: kayakData.reviews?.[0] || 'No reviews',
-          allReviews: kayakData.reviews
-        });
-
-        // Set Kayak reviews state
-        if (kayakData.reviews && Array.isArray(kayakData.reviews)) {
-          setKayakReviews(kayakData.reviews);
-          console.log('📊 Set Kayak reviews state:', kayakData.reviews.length, 'reviews');
-        }
-
-        // Log each review individually
-        if (kayakData.reviews && Array.isArray(kayakData.reviews)) {
-          kayakData.reviews.forEach((review: KayakReview, index: number) => {
-            console.log(`📝 Review ${index + 1}:`, {
-              id: review.id,
-              author: review.author,
-              score: review.score,
-              category: review.localizedRatingCategory,
-              positiveComment: review.positiveComment,
-              negativeComment: review.negativeComment,
-              siteName: review.siteName,
-              monthYear: review.localizedMonthYear
-            });
-          });
-        } else {
-          console.log('⚠️ No reviews array found in response');
-        }
-
-      } catch (error) {
-        console.error('❌ Error fetching Kayak reviews on page load:', error);
-      }
-    };
-
-    // Call immediately when component mounts
-    fetchKayakData();
+    // Call refresh function on mount
+    handleRefresh();
   }, []); // Empty dependency array means this runs once on mount
 
   // Filter and sort reviews
@@ -157,11 +94,10 @@ export default function ReviewsPage() {
   const handleRefresh = async () => {
     setRefreshing(true);
     setKayakLoading(true);
+    setLoading(true);
 
     try {
-      console.log('🔄 Refreshing Kayak reviews...');
-
-      // Use the imported fetchReviews function
+      // Use sample params for imported fetchReviews function
       const kayakParams: FetchKayakReviewsParams = {
         travelerTypes: '',
         months: '',
@@ -176,46 +112,21 @@ export default function ReviewsPage() {
         startIndex: 0,
         amount: 10
       };
-
-      console.log('📡 Refreshing fetchReviews with params:', kayakParams);
       const kayakData = await fetchReviews(kayakParams);
-
-      console.log('✅ Kayak API Response on refresh:', {
-        reviewCount: kayakData.reviewCount,
-        reviewsLength: kayakData.reviews?.length || 0,
-        firstReview: kayakData.reviews?.[0] || 'No reviews',
-        allReviews: kayakData.reviews
-      });
+      console.log('🔄 Refresh Kayak API Response:', kayakData);
 
       // Set Kayak reviews state
       if (kayakData.reviews && Array.isArray(kayakData.reviews)) {
         setKayakReviews(kayakData.reviews);
-        console.log('📊 Updated Kayak reviews state:', kayakData.reviews.length, 'reviews');
-      }
-
-      // Log each review individually
-      if (kayakData.reviews && Array.isArray(kayakData.reviews)) {
-        kayakData.reviews.forEach((review: KayakReview, index: number) => {
-          console.log(`📝 Refresh Review ${index + 1}:`, {
-            id: review.id,
-            author: review.author,
-            score: review.score,
-            category: review.localizedRatingCategory,
-            positiveComment: review.positiveComment,
-            negativeComment: review.negativeComment,
-            siteName: review.siteName,
-            monthYear: review.localizedMonthYear
-          });
-        });
-      } else {
-        console.log('⚠️ No reviews array found in refresh response');
+        console.log('✅ Updated Kayak reviews:', kayakData.reviews.length, 'reviews');
       }
 
     } catch (error) {
-      console.error('❌ Error refreshing Kayak reviews:', error);
+      console.error('❌ Error fetching Kayak reviews:', error);
     } finally {
       setRefreshing(false);
       setKayakLoading(false);
+      setLoading(false);
     }
   };
 
@@ -241,7 +152,9 @@ export default function ReviewsPage() {
         <FlexPanel isOpen={isSidebarOpen} onToggle={toggleSidebar} />
 
         {/* Main Content */}
-        <div className={`flex-1 transition-all duration-300 ease-in-out ${isSidebarOpen ? 'lg:ml-64' : 'lg:ml-0'
+        <div className={`flex-1 transition-all duration-300 ease-in-out overflow-y-auto h-screen ${isSidebarOpen
+          ? 'ml-0 md:ml-64 lg:ml-64'
+          : 'ml-0'
           }`}>
           {/* Page Header */}
           <div className="bg-[#fffdf6] shadow-lg border-b border-gray-200">
@@ -316,7 +229,7 @@ export default function ReviewsPage() {
                   </div>
 
                   <div className="p-6">
-                    {kayakLoading ? (
+                    {loading || kayakLoading ? (
                       <div className="flex items-center justify-center py-8">
                         <RefreshCw className="h-6 w-6 animate-spin text-blue-600 mr-2" />
                         <span className="text-gray-600">Loading Kayak reviews...</span>
@@ -325,7 +238,7 @@ export default function ReviewsPage() {
                       <div className="grid gap-4">
                         {kayakReviews.map((review: KayakReview, index: number) => (
                           <div key={review.id} className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
-                            <div className="flex items-start justify-between mb-3">
+                            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-3 gap-3">
                               <div className="flex items-center space-x-3">
                                 <div className="flex items-center">
                                   {[...Array(5)].map((_, i) => (
@@ -346,7 +259,7 @@ export default function ReviewsPage() {
                                   {review.score}/100
                                 </span>
                               </div>
-                              <div className="text-right">
+                              <div className="text-left sm:text-right">
                                 <div className="text-sm font-medium text-gray-900">{review.author}</div>
                                 <div className="text-xs text-gray-500">{review.localizedMonthYear}</div>
                                 <div className="text-xs text-blue-600">{review.siteName}</div>
@@ -361,7 +274,7 @@ export default function ReviewsPage() {
 
                             {review.positiveComment && (
                               <div className="mb-2">
-                                <p className="text-sm text-gray-700">
+                                <p className="text-sm text-gray-700 break-words">
                                   <span className="font-medium text-green-700">Positive:</span> {review.positiveComment}
                                 </p>
                               </div>
@@ -369,7 +282,7 @@ export default function ReviewsPage() {
 
                             {review.negativeComment && review.negativeComment !== "Nothing" && (
                               <div className="mb-2">
-                                <p className="text-sm text-gray-700">
+                                <p className="text-sm text-gray-700 break-words">
                                   <span className="font-medium text-red-700">Negative:</span> {review.negativeComment}
                                 </p>
                               </div>

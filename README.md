@@ -2,14 +2,19 @@
 
 A comprehensive property management dashboard built with Next.js, React, and TypeScript. This application provides tools for managing properties, reviews, and analytics for property managers.
 
+## Documentation
+ https://docs.google.com/document/d/1CQVAYaGpL29SC5jjLWi867dvtUdKlLmt4iTkHiof3xQ/edit?usp=sharing
+
+## Website
+ https://admin-portal-flex.onrender.com/
+
 ## Features
 
 - **Dashboard Overview**: Comprehensive property management dashboard with analytics
 - **Property Management**: Add, edit, and manage property listings
 - **Review Management**: Moderate and approve guest reviews
 - **Analytics**: Detailed performance metrics and insights
-- **Kayak Integration**: Fetch and display reviews from Kayak API
-- **Responsive Design**: Mobile-friendly interface
+- **API Integration**: Fetch and display reviews from Kayak API
 
 ## Prerequisites
 
@@ -110,7 +115,6 @@ the-flex/
 │   ├── api/               # API routes
 │   ├── dashboard/         # Dashboard pages
 │   ├── reviews/          # Reviews management
-│   └── property/         # Property pages
 ├── components/           # Reusable components
 │   ├── ui/              # UI components (shadcn/ui)
 │   └── ...

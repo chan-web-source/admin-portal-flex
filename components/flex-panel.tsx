@@ -41,8 +41,9 @@ export function FlexPanel({ isOpen, onToggle }: FlexPanelProps) {
 
             {/* Sidebar */}
             <div className={`
-                fixed top-16 left-0 h-[calc(100vh-4rem)] bg-[#1A4D4D] z-50 transition-all duration-300 ease-in-out
+                fixed top-16 left-0 h-[calc(100vh-4rem)] bg-[#1A4D4D] z-50 transition-all duration-300 ease-in-out overflow-y-auto
                 ${isOpen ? 'translate-x-0' : '-translate-x-full'}
+                md:${isOpen ? 'translate-x-0' : '-translate-x-full'} md:fixed md:z-40 md:block md:h-[calc(100vh-4rem)] md:top-16
                 lg:${isOpen ? 'translate-x-0' : '-translate-x-full'} lg:fixed lg:z-40 lg:block lg:h-[calc(100vh-4rem)] lg:top-16
                 ${shouldShowExpanded ? 'w-64' : 'w-16'}
             `}>

@@ -34,29 +34,29 @@ export default function ReviewsGrid({ reviews = [], onReviewToggle, onReviewAppr
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mb-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6 mb-8">
       {reviews.map((review) => (
         <Card key={review.id} className="bg-white shadow-lg hover:shadow-xl transition-all duration-300 border-0 overflow-hidden">
-          <CardContent className="p-6">
+          <CardContent className="p-4 md:p-6">
             <div className="flex items-start justify-between mb-4">
-              <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 rounded-full flex items-center justify-center bg-[#284E4C]">
+              <div className="flex items-center space-x-3 min-w-0 flex-1">
+                <div className="w-10 h-10 rounded-full flex items-center justify-center bg-[#284E4C] flex-shrink-0">
                   <User className="w-5 h-5 text-white" />
                 </div>
-                <div>
-                  <h4 className="font-semibold text-gray-900">{review.guestName}</h4>
+                <div className="min-w-0 flex-1">
+                  <h4 className="font-semibold text-gray-900 truncate">{review.guestName}</h4>
                   <div className="flex items-center space-x-1">{renderStars(review.rating)}</div>
                 </div>
               </div>
-              <div className="text-xs px-2 py-1 rounded-full uppercase tracking-wide bg-gray-100 text-gray-600">{review.channel}</div>
+              <div className="text-xs px-2 py-1 rounded-full uppercase tracking-wide bg-gray-100 text-gray-600 flex-shrink-0 ml-2">{review.channel}</div>
             </div>
 
-            <div className="flex items-center gap-2 mb-3">
-              <h5 className="font-medium text-gray-900 text-sm">{review.propertyName}</h5>
-              <Badge variant="outline" className="text-xs">{review.category}</Badge>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-3">
+              <h5 className="font-medium text-gray-900 text-sm truncate">{review.propertyName}</h5>
+              <Badge variant="outline" className="text-xs flex-shrink-0">{review.category}</Badge>
             </div>
 
-            <blockquote className="text-sm leading-relaxed mb-4 italic text-gray-600">"{review.comment}"</blockquote>
+            <blockquote className="text-sm leading-relaxed mb-4 italic text-gray-600 break-words">"{review.comment}"</blockquote>
 
             <div className="flex items-center justify-between text-xs text-gray-500 mb-4">
               <div className="flex items-center space-x-1">
@@ -69,14 +69,14 @@ export default function ReviewsGrid({ reviews = [], onReviewToggle, onReviewAppr
               </div>
             </div>
 
-            <div className="flex items-center gap-2 pt-4 border-t border-gray-100">
-              <Button variant="outline" size="sm" onClick={() => onReviewToggle(review.id, !review.isPublic)} className="flex-1">
-                {review.isPublic ? <Eye className="h-4 w-4 mr-1" /> : <EyeOff className="h-4 w-4 mr-1" />}
-                {review.isPublic ? "Public" : "Private"}
+            <div className="flex flex-col sm:flex-row items-stretch gap-2 pt-4 border-t border-gray-100">
+              <Button variant="outline" size="sm" onClick={() => onReviewToggle(review.id, !review.isPublic)} className="flex-1 min-w-0">
+                {review.isPublic ? <Eye className="h-4 w-4 mr-1 flex-shrink-0" /> : <EyeOff className="h-4 w-4 mr-1 flex-shrink-0" />}
+                <span className="truncate">{review.isPublic ? "Public" : "Private"}</span>
               </Button>
-              <Button variant="outline" size="sm" onClick={() => onReviewApprove(review.id, !review.isApproved)} className="flex-1">
-                {review.isApproved ? <CheckCircle className="h-4 w-4 mr-1" /> : <XCircle className="h-4 w-4 mr-1" />}
-                {review.isApproved ? "Approved" : "Pending"}
+              <Button variant="outline" size="sm" onClick={() => onReviewApprove(review.id, !review.isApproved)} className="flex-1 min-w-0">
+                {review.isApproved ? <CheckCircle className="h-4 w-4 mr-1 flex-shrink-0" /> : <XCircle className="h-4 w-4 mr-1 flex-shrink-0" />}
+                <span className="truncate">{review.isApproved ? "Approved" : "Pending"}</span>
               </Button>
             </div>
           </CardContent>
