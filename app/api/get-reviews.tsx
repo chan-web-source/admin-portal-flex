@@ -29,7 +29,7 @@ export const fetchKayakReviews = async (params: FetchKayakReviewsParams): Promis
    amount: (params.amount ?? 10).toString()
   });
 
-  const url = `/api/kayak-reviews?${queryParams}`;
+  const url = apiURL + `/filtered?${queryParams}`;
   console.log('🌐 Making request to:', url);
 
   const res = await fetch(url, {
@@ -63,7 +63,7 @@ export const DEFAULT_KAYAK_PARAMS: FetchKayakReviewsParams = {
  months: '',
  tagClusterName: '',
  searchText: '',
- reviewSources: 'BOOKING,AGODA,PRICELINE,HOTELSCOMBINED,KAYAK',
+ reviewSources: 'KAYAK',
  sortType: 'recent',
  includeReviewLink: true,
  reviewType: 'hotel',
