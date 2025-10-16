@@ -138,7 +138,7 @@ The application integrates with Kayak's review API to fetch and display external
 
 ```typescript
 // Example usage
-const kayakReviews = await fetchKayakReviews({
+const kayakReviews = await fetchReviews({
   objectId: '12222',
   amount: 10,
   reviewSources: 'BOOKING,AGODA,PRICELINE,HOTELSCOMBINED,KAYAK'

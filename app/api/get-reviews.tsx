@@ -1,4 +1,6 @@
 import type { KayakReviewsResponse, FetchKayakReviewsParams } from "../../types/review";
+import { DEFAULT_KAYAK_PARAMS } from "../../lib/kayak-config";
+import { KAYAK_MOCK_DATA } from "../../lib/mock/kayak-mock-data";
 
 /**
  * Fetches reviews from Kayak API
@@ -9,9 +11,9 @@ const apiURL = process.env.NEXT_PUBLIC_API_URL || 'https://www.kayak.com/i/api/s
 
 
 
-export const fetchKayakReviews = async (params: FetchKayakReviewsParams): Promise<KayakReviewsResponse> => {
+export const fetchReviews = async (params: FetchKayakReviewsParams): Promise<KayakReviewsResponse> => {
  try {
-  console.log('🔧 fetchKayakReviews called with params:', params);
+  console.log('🔧 fetchReviews called with params:', params);
 
   // Use the Next.js API route instead of direct Kayak API call
   const queryParams = new URLSearchParams({
@@ -30,7 +32,7 @@ export const fetchKayakReviews = async (params: FetchKayakReviewsParams): Promis
   });
 
   const url = apiURL + `/filtered?${queryParams}`;
-  console.log('🌐 Making request to:', url);
+  console.log('🌐 Making request to proxy:', url);
 
   const res = await fetch(url, {
    method: 'GET',
@@ -45,30 +47,23 @@ export const fetchKayakReviews = async (params: FetchKayakReviewsParams): Promis
    throw new Error(`HTTP error! status: ${res.status}`);
   }
 
-  const data = await res.json();
-  console.log('📦 Response data:', data);
+  let data: any;
+  const contentType = res.headers.get('content-type') || '';
+  if (contentType.includes('application/json')) {
+   data = await res.json();
+  } else {
+   const text = await res.text();
+   try {
+    data = JSON.parse(text);
+   } catch {
+    data = text;
+   }
+  }
 
+  console.log('📦 Response data:', data);
   return data as KayakReviewsResponse;
  } catch (error) {
-  console.error('❌ Error in fetchKayakReviews:', error);
-  throw error;
+  console.error('❌ Error in fetchReviews, returning mock data:', error);
+  return KAYAK_MOCK_DATA;
  }
-};
-
-/**
- * Default parameters for fetching Kayak reviews
- */
-export const DEFAULT_KAYAK_PARAMS: FetchKayakReviewsParams = {
- travelerTypes: '',
- months: '',
- tagClusterName: '',
- searchText: '',
- reviewSources: 'KAYAK',
- sortType: 'recent',
- includeReviewLink: true,
- reviewType: 'hotel',
- objectId: '12222',
- includeObjectId: false,
- startIndex: 0,
- amount: 10
 };

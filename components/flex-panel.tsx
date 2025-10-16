@@ -34,7 +34,7 @@ export function FlexPanel({ isOpen, onToggle }: FlexPanelProps) {
             {/* Mobile Overlay */}
             {isOpen && (
                 <div
-                    className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+                    className="fixed inset-0 bg-opacity-50 z-40 lg:hidden"
                     onClick={onToggle}
                 />
             )}
@@ -85,14 +85,6 @@ export function FlexPanel({ isOpen, onToggle }: FlexPanelProps) {
                         })}
                     </nav>
 
-                    {/* Footer */}
-                    <div className="p-4 border-t border-[#1e3a38]">
-                        {shouldShowExpanded && (
-                            <div className="text-xs text-gray-400 text-center">
-                                The Flex Admin Panel
-                            </div>
-                        )}
-                    </div>
                 </div>
             </div>
         </>

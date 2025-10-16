@@ -14,7 +14,7 @@ import ReviewsStats from "./stats/page";
 import DisplayInfo from "./display/page";
 import { mockReviews } from "../../lib/mock-dashboard-data";
 import type { ReviewData } from "../../types/dashboard";
-import { fetchKayakReviews } from "../api/get-reviews";
+import { fetchReviews } from "../api/get-reviews";
 import type { FetchKayakReviewsParams, KayakReview } from "../../types/review";
 
 export default function ReviewsPage() {
@@ -49,7 +49,7 @@ export default function ReviewsPage() {
       try {
         console.log('🔍 Starting Kayak API call on page load...');
 
-        // Use the imported fetchKayakReviews function
+        // Use the imported fetchReviews function
         const kayakParams: FetchKayakReviewsParams = {
           travelerTypes: '',
           months: '',
@@ -65,10 +65,10 @@ export default function ReviewsPage() {
           amount: 10
         };
 
-        console.log('📡 Calling fetchKayakReviews with params:', kayakParams);
-        console.log('🔧 About to call fetchKayakReviews function...');
-        const kayakData = await fetchKayakReviews(kayakParams);
-        console.log('✅ fetchKayakReviews completed successfully');
+        console.log('📡 Calling fetchReviews with params:', kayakParams);
+        console.log('🔧 About to call fetchReviews function...');
+        const kayakData = await fetchReviews(kayakParams);
+        console.log('✅ fetchReviews completed successfully');
 
         console.log('✅ Kayak API Response on page load:', {
           reviewCount: kayakData.reviewCount,
@@ -161,7 +161,7 @@ export default function ReviewsPage() {
     try {
       console.log('🔄 Refreshing Kayak reviews...');
 
-      // Use the imported fetchKayakReviews function
+      // Use the imported fetchReviews function
       const kayakParams: FetchKayakReviewsParams = {
         travelerTypes: '',
         months: '',
@@ -177,8 +177,8 @@ export default function ReviewsPage() {
         amount: 10
       };
 
-      console.log('📡 Refreshing fetchKayakReviews with params:', kayakParams);
-      const kayakData = await fetchKayakReviews(kayakParams);
+      console.log('📡 Refreshing fetchReviews with params:', kayakParams);
+      const kayakData = await fetchReviews(kayakParams);
 
       console.log('✅ Kayak API Response on refresh:', {
         reviewCount: kayakData.reviewCount,
