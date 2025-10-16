@@ -18,11 +18,11 @@ import {
 
 export default function InsightsPage() {
  return (
-  <div className="bg-[#fffdf6] shadow-lg border-b border-gray-200">
+  <div className="bg-[#fffdf6] shadow-lg">
    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
      {/* Booking Trends */}
-     <Card>
+     <Card className="bg-white shadow-lg">
       <CardHeader>
        <CardTitle className="flex items-center gap-2">
         <TrendingUpIcon className="h-5 w-5 text-blue-600" />
@@ -84,7 +84,7 @@ export default function InsightsPage() {
      </Card>
 
      {/* Recurring Issues */}
-     <Card>
+     <Card className="bg-white shadow-lg">
       <CardHeader>
        <CardTitle className="flex items-center gap-2">
         <AlertCircle className="h-5 w-5 text-amber-600" />
@@ -94,7 +94,7 @@ export default function InsightsPage() {
       </CardHeader>
       <CardContent>
        <div className="space-y-4">
-        <div className="flex items-center justify-between p-3 bg-amber-50 rounded-lg border border-amber-200">
+        <div className="flex items-center justify-between p-3 bg-amber-50 rounded-lg shadow-sm">
          <div className="flex items-center gap-3">
           <div className="p-2 bg-amber-100 rounded-lg">
            <AlertTriangle className="h-4 w-4 text-amber-600" />
@@ -110,7 +110,7 @@ export default function InsightsPage() {
          </div>
         </div>
 
-        <div className="flex items-center justify-between p-3 bg-red-50 rounded-lg border border-red-200">
+        <div className="flex items-center justify-between p-3 bg-red-50 rounded-lg shadow-sm">
          <div className="flex items-center gap-3">
           <div className="p-2 bg-red-100 rounded-lg">
            <X className="h-4 w-4 text-red-600" />
@@ -126,7 +126,7 @@ export default function InsightsPage() {
          </div>
         </div>
 
-        <div className="flex items-center justify-between p-3 bg-orange-50 rounded-lg border border-orange-200">
+        <div className="flex items-center justify-between p-3 bg-orange-50 rounded-lg shadow-sm">
          <div className="flex items-center gap-3">
           <div className="p-2 bg-orange-100 rounded-lg">
            <Zap className="h-4 w-4 text-orange-600" />
@@ -142,7 +142,7 @@ export default function InsightsPage() {
          </div>
         </div>
 
-        <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg border border-blue-200">
+        <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg shadow-sm">
          <div className="flex items-center gap-3">
           <div className="p-2 bg-blue-100 rounded-lg">
            <Activity className="h-4 w-4 text-blue-600" />
@@ -163,7 +163,7 @@ export default function InsightsPage() {
     </div>
 
     {/* Performance Insights */}
-    <Card className="mb-8">
+    <Card className="bg-white shadow-lg mb-8">
      <CardHeader>
       <CardTitle className="flex items-center gap-2">
        <Target className="h-5 w-5 text-green-600" />

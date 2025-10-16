@@ -51,7 +51,7 @@ export default function ReviewsFilters({
  const uniqueProperties = Array.from(new Set((reviews || []).map(r => r.propertyName)));
 
  return (
-  <div className="bg-white rounded-lg border border-gray-200 p-6 mb-6">
+  <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
    <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
     <div className="flex flex-col sm:flex-row gap-4">
      <div className="relative">

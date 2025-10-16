@@ -406,10 +406,10 @@ export function PropertiesOverview({
             <Star
                 key={i}
                 className={`h-4 w-4 ${i < Math.floor(rating)
-                        ? "fill-yellow-400 text-yellow-400"
-                        : i < rating
-                            ? "fill-yellow-200 text-yellow-400"
-                            : "text-gray-300"
+                    ? "fill-yellow-400 text-yellow-400"
+                    : i < rating
+                        ? "fill-yellow-200 text-yellow-400"
+                        : "text-gray-300"
                     }`}
             />
         ));
@@ -466,7 +466,7 @@ export function PropertiesOverview({
                     {/* Sort and View Mode */}
                     <div className="flex items-center gap-2">
                         {/* View Mode Toggle */}
-                        <div className="flex bg-white border border-[#284E4C]/20 rounded-lg overflow-hidden">
+                        <div className="flex bg-white shadow-lg rounded-lg overflow-hidden">
                             <Button
                                 variant={
                                     viewMode === "grid" ? "default" : "ghost"
@@ -474,8 +474,8 @@ export function PropertiesOverview({
                                 size="sm"
                                 onClick={() => setViewMode("grid")}
                                 className={`rounded-none ${viewMode === "grid"
-                                        ? "bg-[#284E4C] text-white hover:bg-[#1a332f]"
-                                        : "text-[#284E4C] hover:bg-[#284E4C]/10"
+                                    ? "bg-[#284E4C] text-white hover:bg-[#1a332f]"
+                                    : "text-[#284E4C] hover:bg-[#284E4C]/10"
                                     }`}
                             >
                                 <Grid3X3 className="h-4 w-4" />
@@ -487,8 +487,8 @@ export function PropertiesOverview({
                                 size="sm"
                                 onClick={() => setViewMode("list")}
                                 className={`rounded-none ${viewMode === "list"
-                                        ? "bg-[#284E4C] text-white hover:bg-[#1a332f]"
-                                        : "text-[#284E4C] hover:bg-[#284E4C]/10"
+                                    ? "bg-[#284E4C] text-white hover:bg-[#1a332f]"
+                                    : "text-[#284E4C] hover:bg-[#284E4C]/10"
                                     }`}
                             >
                                 <List className="h-4 w-4" />
@@ -500,8 +500,8 @@ export function PropertiesOverview({
                                 size="sm"
                                 onClick={() => setViewMode("map")}
                                 className={`rounded-none ${viewMode === "map"
-                                        ? "bg-[#284E4C] text-white hover:bg-[#1a332f]"
-                                        : "text-[#284E4C] hover:bg-[#284E4C]/10"
+                                    ? "bg-[#284E4C] text-white hover:bg-[#1a332f]"
+                                    : "text-[#284E4C] hover:bg-[#284E4C]/10"
                                     }`}
                             >
                                 <Map className="h-4 w-4" />
@@ -574,8 +574,8 @@ export function PropertiesOverview({
             ) : (
                 <div
                     className={`grid gap-6 mb-12 ${viewMode === "grid"
-                            ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-                            : "grid-cols-1"
+                        ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+                        : "grid-cols-1"
                         }`}
                 >
                     {filteredProperties.map((property) => (
@@ -612,8 +612,8 @@ export function PropertiesOverview({
                                     >
                                         <Heart
                                             className={`h-4 w-4 ${likedProperties.has(property.id)
-                                                    ? "fill-red-500 text-red-500"
-                                                    : "text-gray-600"
+                                                ? "fill-red-500 text-red-500"
+                                                : "text-gray-600"
                                                 }`}
                                         />
                                     </button>

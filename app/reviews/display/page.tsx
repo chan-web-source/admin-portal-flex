@@ -12,7 +12,7 @@ export default function DisplayInfo({ showAllReviews }: DisplayInfoProps) {
   if (showAllReviews) return null;
 
   return (
-    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+    <div className="bg-blue-50 shadow-sm rounded-lg p-4 mb-6">
       <div className="flex items-center gap-2">
         <MessageSquare className="h-5 w-5 text-blue-600" />
         <p className="text-sm text-blue-800">

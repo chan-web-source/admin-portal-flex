@@ -68,11 +68,11 @@ export function PublicReviewsSection({
 
                         const filteredReviews = propertyName
                             ? approvedReviews.filter(
-                                  (review: NormalizedReview) =>
-                                      review.listingName
-                                          .toLowerCase()
-                                          .includes(propertyName.toLowerCase())
-                              )
+                                (review: NormalizedReview) =>
+                                    review.listingName
+                                        .toLowerCase()
+                                        .includes(propertyName.toLowerCase())
+                            )
                             : approvedReviews;
 
                         setReviews(filteredReviews.slice(0, maxReviews));
@@ -107,11 +107,10 @@ export function PublicReviewsSection({
         return Array.from({ length: 5 }, (_, i) => (
             <Star
                 key={i}
-                className={`h-3.5 w-3.5 ${
-                    i < stars
+                className={`h-3.5 w-3.5 ${i < stars
                         ? "fill-yellow-400 text-yellow-400"
                         : "text-gray-300"
-                }`}
+                    }`}
             />
         ));
     };
@@ -137,7 +136,7 @@ export function PublicReviewsSection({
                             {[...Array(6)].map((_, i) => (
                                 <div
                                     key={i}
-                                    className="bg-white rounded-xl h-64 border border-gray-100"
+                                    className="bg-white rounded-xl h-64 shadow-sm"
                                 ></div>
                             ))}
                         </div>
@@ -188,7 +187,7 @@ export function PublicReviewsSection({
                     {currentReviews.map((review) => (
                         <div
                             key={review.id}
-                            className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-200 border border-gray-100"
+                            className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-200"
                         >
                             {/* Review Header */}
                             <div className="flex items-start justify-between mb-4">
@@ -265,11 +264,10 @@ export function PublicReviewsSection({
                                     }
                                     size="sm"
                                     onClick={() => setCurrentPage(i)}
-                                    className={`h-10 w-10 p-0 text-sm ${
-                                        currentPage === i
+                                    className={`h-10 w-10 p-0 text-sm ${currentPage === i
                                             ? "bg-[#284E4C] hover:bg-[#1e3a38] text-white"
                                             : "hover:bg-gray-100"
-                                    }`}
+                                        }`}
                                 >
                                     {i + 1}
                                 </Button>

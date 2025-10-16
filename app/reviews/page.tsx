@@ -157,7 +157,7 @@ export default function ReviewsPage() {
           : 'ml-0'
           }`}>
           {/* Page Header */}
-          <div className="bg-[#fffdf6] shadow-lg border-b border-gray-200">
+          <div className="bg-[#fffdf6] shadow-lg">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
                 <div>
@@ -223,9 +223,9 @@ export default function ReviewsPage() {
 
               {/* Recent Reviews Section */}
               <div className="mt-8">
-                <div className="bg-white rounded-lg shadow-lg border border-gray-200">
-                  <div className="px-6 py-4 border-b border-gray-200">
-                    <h2 className="text-xl font-semibold text-gray-900">Recent Reviews</h2>
+                <div className="bg-[white] rounded-lg shadow-lg">
+                  <div className="px-6 py-4 bg-[#1a4d4d]">
+                    <h2 className="text-xl font-semibold text-white">Recent Reviews</h2>
                   </div>
 
                   <div className="p-6">
@@ -237,7 +237,7 @@ export default function ReviewsPage() {
                     ) : kayakReviews.length > 0 ? (
                       <div className="grid gap-4">
                         {kayakReviews.map((review: KayakReview, index: number) => (
-                          <div key={review.id} className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                          <div key={review.id} className="bg-white rounded-lg shadow-lg p-4 hover:shadow-xl transition-shadow">
                             <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-3 gap-3">
                               <div className="flex items-center space-x-3">
                                 <div className="flex items-center">
