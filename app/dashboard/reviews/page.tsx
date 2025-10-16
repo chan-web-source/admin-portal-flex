@@ -1,5 +1,7 @@
 "use client";
 
+export const dynamic = 'force-dynamic';
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -11,8 +13,8 @@ interface ReviewsPageProps {
  onReviewToggle: (reviewId: string, isPublic: boolean) => void;
 }
 
-export default function ReviewsPage({ reviews, onReviewToggle }: ReviewsPageProps) {
- const approvedReviews = reviews.filter(review => review.isApproved);
+export default function ReviewsPage({ reviews = [], onReviewToggle }: ReviewsPageProps) {
+ const approvedReviews = (reviews || []).filter(review => review.isApproved);
 
  return (
   <div className="bg-[#fffdf6]">

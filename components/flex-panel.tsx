@@ -13,6 +13,9 @@ interface FlexPanelProps {
 export function FlexPanel({ isOpen, onToggle }: FlexPanelProps) {
     const [isExpanded, setIsExpanded] = useState(true);
 
+    // On mobile, always show expanded when open
+    const shouldShowExpanded = isOpen ? isExpanded : false;
+
     const navigationItems = [
         {
             name: "Dashboard",
@@ -26,7 +29,7 @@ export function FlexPanel({ isOpen, onToggle }: FlexPanelProps) {
         },
         {
             name: "Google Reviews",
-            href: "/google-reviews",
+            href: "/dashboard",
             icon: Star,
         },
     ];
@@ -45,13 +48,13 @@ export function FlexPanel({ isOpen, onToggle }: FlexPanelProps) {
             <div className={`
                 fixed top-16 left-0 h-[calc(100vh-4rem)] bg-[#1A4D4D] z-50 transition-all duration-300 ease-in-out
                 ${isOpen ? 'translate-x-0' : '-translate-x-full'}
-                lg:translate-x-0 lg:fixed lg:z-40 lg:block lg:h-[calc(100vh-4rem)] lg:top-16
-                ${isExpanded ? 'w-64' : 'w-16'}
+                lg:${isOpen ? 'translate-x-0' : '-translate-x-full'} lg:fixed lg:z-40 lg:block lg:h-[calc(100vh-4rem)] lg:top-16
+                ${shouldShowExpanded ? 'w-64' : 'w-16'}
             `}>
                 <div className="flex flex-col h-full">
                     {/* Header */}
                     <div className="flex items-center justify-between p-4 border-b border-[#1e3a38]">
-                        {isExpanded && (
+                        {shouldShowExpanded && (
                             <h2 className="text-white font-semibold text-lg">Manager</h2>
                         )}
                         <Button
@@ -79,7 +82,7 @@ export function FlexPanel({ isOpen, onToggle }: FlexPanelProps) {
                                     className="flex items-center space-x-3 px-3 py-2 text-white hover:text-gray-200 hover:bg-[#1e3a38] rounded-lg transition-colors group"
                                 >
                                     <Icon className="w-5 h-5 flex-shrink-0" />
-                                    {isExpanded && (
+                                    {shouldShowExpanded && (
                                         <span className="text-sm font-medium">{item.name}</span>
                                     )}
                                 </Link>
@@ -89,7 +92,7 @@ export function FlexPanel({ isOpen, onToggle }: FlexPanelProps) {
 
                     {/* Footer */}
                     <div className="p-4 border-t border-[#1e3a38]">
-                        {isExpanded && (
+                        {shouldShowExpanded && (
                             <div className="text-xs text-gray-400 text-center">
                                 The Flex Admin Panel
                             </div>

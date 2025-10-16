@@ -8,11 +8,11 @@ interface ReviewsStatsProps {
  reviews: ReviewData[];
 }
 
-export default function ReviewsStats({ reviews }: ReviewsStatsProps) {
- const totalReviews = reviews.length;
- const approvedReviews = reviews.filter(r => r.isApproved).length;
- const pendingReviews = reviews.filter(r => !r.isApproved).length;
- const publicReviews = reviews.filter(r => r.isPublic).length;
+export default function ReviewsStats({ reviews = [] }: ReviewsStatsProps) {
+ const totalReviews = reviews?.length || 0;
+ const approvedReviews = reviews?.filter(r => r.isApproved)?.length || 0;
+ const pendingReviews = reviews?.filter(r => !r.isApproved)?.length || 0;
+ const publicReviews = reviews?.filter(r => r.isPublic)?.length || 0;
 
  return (
   <Card className="bg-white">

@@ -1,5 +1,7 @@
 "use client";
 
+export const dynamic = 'force-dynamic';
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -49,6 +51,18 @@ export default function PropertiesPage({
  onSortByChange,
  onSortOrderChange,
 }: PropertiesPageProps) {
+ if (!properties || properties.length === 0) {
+  return (
+   <div className="bg-[#fffdf6]">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+     <div className="text-center py-12">
+      <p className="text-gray-500">No properties found</p>
+     </div>
+    </div>
+   </div>
+  );
+ }
+
  return (
   <div className="bg-[#fffdf6]">
    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

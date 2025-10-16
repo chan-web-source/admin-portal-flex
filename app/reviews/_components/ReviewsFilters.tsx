@@ -8,14 +8,8 @@ import {
  SelectTrigger,
  SelectValue,
 } from "@/components/ui/select";
-import {
- Checkbox,
-} from "@/components/ui/checkbox";
-import {
- Search,
- SortAsc,
- SortDesc,
-} from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Search, SortAsc, SortDesc } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { ReviewData } from "../../../types/dashboard";
 
@@ -54,8 +48,7 @@ export default function ReviewsFilters({
  onShowOnlyPublicChange,
  onShowAllReviewsChange,
 }: ReviewsFiltersProps) {
- // Get unique properties for filters
- const uniqueProperties = Array.from(new Set(reviews.map(r => r.propertyName)));
+ const uniqueProperties = Array.from(new Set((reviews || []).map(r => r.propertyName)));
 
  return (
   <div className="bg-white rounded-lg border border-gray-200 p-6 mb-6">
@@ -84,7 +77,6 @@ export default function ReviewsFilters({
        ))}
       </SelectContent>
      </Select>
-
 
      <Select value={selectedStatus} onValueChange={onStatusChange}>
       <SelectTrigger className="w-full sm:w-40">
