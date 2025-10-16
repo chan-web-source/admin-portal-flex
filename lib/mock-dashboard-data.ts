@@ -1,53 +1,4 @@
-export interface PropertyData {
- id: string;
- name: string;
- location: string;
- city: 'London' | 'Paris' | 'Algiers';
- type: 'Apartment' | 'Studio' | 'House';
- bedrooms: number;
- bathrooms: number;
- rating: number;
- totalReviews: number;
- occupancyRate: number;
- revenue: number;
- revenueChange: number;
- lastUpdated: string;
- status: 'Active' | 'Maintenance' | 'Vacant';
- image: string;
-}
-
-export interface ReviewData {
- id: string;
- propertyId: string;
- propertyName: string;
- guestName: string;
- rating: number;
- comment: string;
- channel: 'Booking.com' | 'Airbnb' | 'Direct' | 'Google';
- category: 'Cleanliness' | 'Location' | 'Value' | 'Communication' | 'Check-in';
- submittedAt: string;
- isApproved: boolean;
- isPublic: boolean;
- managerNotes?: string;
-}
-
-export interface DashboardStats {
- totalRevenue: number;
- revenueChange: number;
- totalProperties: number;
- propertiesChange: number;
- totalReviews: number;
- reviewsChange: number;
- averageRating: number;
- ratingChange: number;
- occupancyRate: number;
- occupancyChange: number;
- responseRate: number;
- responseChange: number;
- pendingReviews: number;
- approvedReviews: number;
- rejectedReviews: number;
-}
+import type { PropertyData, ReviewData, DashboardStats } from '../types/dashboard';
 
 export const mockProperties: PropertyData[] = [
  {
@@ -65,7 +16,26 @@ export const mockProperties: PropertyData[] = [
   revenueChange: 12.5,
   lastUpdated: '2024-01-15',
   status: 'Active',
-  image: '/modern-london-apartment-exterior.jpg'
+  image: '/modern-london-apartment-exterior.jpg',
+  totalBookings: 45,
+  bookingsChange: 8.2,
+  cancellations: 3,
+  cancellationRate: 6.7,
+  averageStayLength: 4.2,
+  cleaningFees: 1200,
+  maintenanceCosts: 850,
+  netProfit: 13370,
+  profitMargin: 86.7,
+  lastBooking: '2024-01-12',
+  nextBooking: '2024-01-18',
+  categoryRatings: {
+   cleanliness: 9.0,
+   communication: 8.5,
+   location: 9.2,
+   checkin: 8.8,
+   accuracy: 8.7,
+   value: 8.3
+  }
  },
  {
   id: 'prop-2',
@@ -82,7 +52,26 @@ export const mockProperties: PropertyData[] = [
   revenueChange: 8.3,
   lastUpdated: '2024-01-14',
   status: 'Active',
-  image: '/luxury-canary-wharf-apartment.jpg'
+  image: '/luxury-canary-wharf-apartment.jpg',
+  totalBookings: 38,
+  bookingsChange: 12.1,
+  cancellations: 2,
+  cancellationRate: 5.3,
+  averageStayLength: 3.8,
+  cleaningFees: 950,
+  maintenanceCosts: 650,
+  netProfit: 11250,
+  profitMargin: 87.5,
+  lastBooking: '2024-01-10',
+  nextBooking: '2024-01-16',
+  categoryRatings: {
+   cleanliness: 9.2,
+   communication: 9.0,
+   location: 9.5,
+   checkin: 9.1,
+   accuracy: 8.9,
+   value: 8.8
+  }
  },
  {
   id: 'prop-3',
@@ -99,7 +88,26 @@ export const mockProperties: PropertyData[] = [
   revenueChange: -2.1,
   lastUpdated: '2024-01-13',
   status: 'Active',
-  image: '/stylish-fitzrovia-studio-apartment.jpg'
+  image: '/stylish-fitzrovia-studio-apartment.jpg',
+  totalBookings: 52,
+  bookingsChange: -5.2,
+  cancellations: 7,
+  cancellationRate: 13.5,
+  averageStayLength: 2.8,
+  cleaningFees: 780,
+  maintenanceCosts: 420,
+  netProfit: 8450,
+  profitMargin: 87.6,
+  lastBooking: '2024-01-08',
+  nextBooking: '2024-01-20',
+  categoryRatings: {
+   cleanliness: 8.8,
+   communication: 8.2,
+   location: 9.0,
+   checkin: 8.5,
+   accuracy: 8.3,
+   value: 8.0
+  }
  },
  {
   id: 'prop-4',
@@ -116,7 +124,26 @@ export const mockProperties: PropertyData[] = [
   revenueChange: 15.2,
   lastUpdated: '2024-01-12',
   status: 'Active',
-  image: '/modern-furnished-apartment-living-room.jpg'
+  image: '/modern-furnished-apartment-living-room.jpg',
+  totalBookings: 28,
+  bookingsChange: 18.5,
+  cancellations: 1,
+  cancellationRate: 3.6,
+  averageStayLength: 6.1,
+  cleaningFees: 1500,
+  maintenanceCosts: 1200,
+  netProfit: 16050,
+  profitMargin: 85.6,
+  lastBooking: '2024-01-09',
+  nextBooking: '2024-01-22',
+  categoryRatings: {
+   cleanliness: 9.1,
+   communication: 8.7,
+   location: 9.4,
+   checkin: 8.9,
+   accuracy: 8.6,
+   value: 8.4
+  }
  },
  {
   id: 'prop-5',
@@ -133,7 +160,26 @@ export const mockProperties: PropertyData[] = [
   revenueChange: 22.8,
   lastUpdated: '2024-01-11',
   status: 'Active',
-  image: '/modern-apartment-bedroom-with-natural-light.jpg'
+  image: '/modern-apartment-bedroom-with-natural-light.jpg',
+  totalBookings: 18,
+  bookingsChange: 25.0,
+  cancellations: 2,
+  cancellationRate: 11.1,
+  averageStayLength: 3.2,
+  cleaningFees: 320,
+  maintenanceCosts: 180,
+  netProfit: 3700,
+  profitMargin: 88.1,
+  lastBooking: '2024-01-05',
+  nextBooking: '2024-01-25',
+  categoryRatings: {
+   cleanliness: 8.5,
+   communication: 8.0,
+   location: 8.8,
+   checkin: 8.3,
+   accuracy: 8.1,
+   value: 8.6
+  }
  },
  {
   id: 'prop-6',
@@ -150,7 +196,26 @@ export const mockProperties: PropertyData[] = [
   revenueChange: 5.7,
   lastUpdated: '2024-01-10',
   status: 'Maintenance',
-  image: '/stylish-bedroom-with-yellow-accents-and-artwork.jpg'
+  image: '/stylish-bedroom-with-yellow-accents-and-artwork.jpg',
+  totalBookings: 35,
+  bookingsChange: 3.2,
+  cancellations: 4,
+  cancellationRate: 11.4,
+  averageStayLength: 4.5,
+  cleaningFees: 890,
+  maintenanceCosts: 750,
+  netProfit: 9560,
+  profitMargin: 85.4,
+  lastBooking: '2024-01-07',
+  nextBooking: '2024-01-28',
+  categoryRatings: {
+   cleanliness: 8.9,
+   communication: 8.4,
+   location: 9.1,
+   checkin: 8.6,
+   accuracy: 8.5,
+   value: 8.2
+  }
  }
 ];
 
@@ -162,7 +227,7 @@ export const mockReviews: ReviewData[] = [
   guestName: 'Sarah Johnson',
   rating: 5,
   comment: 'Absolutely perfect stay! The apartment was spotless and the location was ideal for exploring London.',
-  channel: 'Booking.com',
+  channel: 'The Flex',
   category: 'Cleanliness',
   submittedAt: '2024-01-15T10:30:00Z',
   isApproved: true,
@@ -175,7 +240,7 @@ export const mockReviews: ReviewData[] = [
   guestName: 'Michael Chen',
   rating: 4,
   comment: 'Great location and well-equipped apartment. Only minor issue was the WiFi speed.',
-  channel: 'Airbnb',
+  channel: 'The Flex',
   category: 'Location',
   submittedAt: '2024-01-14T15:45:00Z',
   isApproved: true,
@@ -188,7 +253,7 @@ export const mockReviews: ReviewData[] = [
   guestName: 'Emma Wilson',
   rating: 5,
   comment: 'Luxury apartment with amazing views. Everything was perfect!',
-  channel: 'Direct',
+  channel: 'The Flex',
   category: 'Value',
   submittedAt: '2024-01-13T09:20:00Z',
   isApproved: true,
@@ -201,7 +266,7 @@ export const mockReviews: ReviewData[] = [
   guestName: 'David Brown',
   rating: 3,
   comment: 'The studio was smaller than expected and quite noisy at night.',
-  channel: 'Google',
+  channel: 'The Flex',
   category: 'Communication',
   submittedAt: '2024-01-12T14:15:00Z',
   isApproved: false,
@@ -215,7 +280,7 @@ export const mockReviews: ReviewData[] = [
   guestName: 'Sophie Martin',
   rating: 4,
   comment: 'Beautiful apartment in perfect location. Check-in process was smooth.',
-  channel: 'Booking.com',
+  channel: 'The Flex',
   category: 'Check-in',
   submittedAt: '2024-01-11T11:30:00Z',
   isApproved: true,
@@ -228,7 +293,7 @@ export const mockReviews: ReviewData[] = [
   guestName: 'Ahmed Benali',
   rating: 4,
   comment: 'Good value for money. Clean and comfortable apartment.',
-  channel: 'Direct',
+  channel: 'The Flex',
   category: 'Value',
   submittedAt: '2024-01-10T16:45:00Z',
   isApproved: true,

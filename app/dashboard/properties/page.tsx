@@ -1,244 +1,236 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { FlexHeader } from "@/components/flex-header";
-import { FlexFooter } from "@/components/flex-footer";
-import { PropertyPerformanceManager } from "@/components/property-performance-manager";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
 import {
-    ArrowLeft,
-    TrendingUp,
-    TrendingDown,
-    Star,
-    Home,
-    AlertTriangle,
-    RefreshCw,
+ Select,
+ SelectContent,
+ SelectItem,
+ SelectTrigger,
+ SelectValue,
+} from "@/components/ui/select";
+import {
+ Search,
+ MapPin,
+ Star,
+ TrendingUp,
+ TrendingDown,
+ SortAsc,
+ SortDesc,
 } from "lucide-react";
-import Link from "next/link";
-import type { NormalizedReview } from "@/types/review";
+import type { PropertyData } from "../../../types/dashboard";
 
-export default function PropertyPerformancePage() {
-    const [reviews, setReviews] = useState<NormalizedReview[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [refreshing, setRefreshing] = useState(false);
+interface PropertiesPageProps {
+ properties: PropertyData[];
+ searchQuery: string;
+ selectedCity: string;
+ selectedPropertyType: string;
+ sortBy: string;
+ sortOrder: "asc" | "desc";
+ onSearchChange: (value: string) => void;
+ onCityChange: (value: string) => void;
+ onPropertyTypeChange: (value: string) => void;
+ onSortByChange: (value: string) => void;
+ onSortOrderChange: () => void;
+}
 
-    // Fetch reviews data
-    const fetchReviews = async () => {
-        setRefreshing(true);
-        try {
-            const response = await fetch("/api/reviews");
-            const data = await response.json();
-            if (data.success) {
-                // Ensure dates are properly parsed
-                const processedReviews = data.data.map((review: any) => ({
-                    ...review,
-                    submittedAt: new Date(review.submittedAt),
-                }));
-                setReviews(processedReviews);
-            }
-        } catch (error) {
-            console.error("Error fetching reviews:", error);
-        } finally {
-            setLoading(false);
-            setRefreshing(false);
-        }
-    };
+export default function PropertiesPage({
+ properties,
+ searchQuery,
+ selectedCity,
+ selectedPropertyType,
+ sortBy,
+ sortOrder,
+ onSearchChange,
+ onCityChange,
+ onPropertyTypeChange,
+ onSortByChange,
+ onSortOrderChange,
+}: PropertiesPageProps) {
+ return (
+  <div className="bg-[#fffdf6]">
+   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    {/* Filters and Search */}
+    <div className="bg-white rounded-lg border border-gray-200 p-6 mb-6">
+     <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+      <div className="flex flex-col sm:flex-row gap-4">
+       <div className="relative">
+        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+        <Input
+         placeholder="Search properties..."
+         value={searchQuery}
+         onChange={(e) => onSearchChange(e.target.value)}
+         className="pl-10 w-full sm:w-64"
+        />
+       </div>
 
-    useEffect(() => {
-        fetchReviews();
-    }, []);
+       <Select value={selectedCity} onValueChange={onCityChange}>
+        <SelectTrigger className="w-full sm:w-40">
+         <SelectValue placeholder="City" />
+        </SelectTrigger>
+        <SelectContent>
+         <SelectItem value="all">All Cities</SelectItem>
+         <SelectItem value="London">London</SelectItem>
+         <SelectItem value="Paris">Paris</SelectItem>
+         <SelectItem value="Algiers">Algiers</SelectItem>
+        </SelectContent>
+       </Select>
 
-    // Calculate overview stats
-    const overviewStats = {
-        totalProperties: reviews
-            ? [...new Set(reviews.map((r) => r.listingName))].length
-            : 0,
-        totalReviews: reviews ? reviews.length : 0,
-        averageRating:
-            reviews && reviews.length > 0
-                ? reviews.reduce((sum, r) => sum + r.overallRating, 0) /
-                  reviews.length
-                : 0,
-        highPerformingProperties: reviews
-            ? [
-                  ...new Set(
-                      reviews
-                          .filter((r) => r.overallRating >= 4.5)
-                          .map((r) => r.listingName)
-                  ),
-              ].length
-            : 0,
-        needsAttention: reviews
-            ? [
-                  ...new Set(
-                      reviews
-                          .filter((r) => r.overallRating < 4.0)
-                          .map((r) => r.listingName)
-                  ),
-              ].length
-            : 0,
-    };
+       <Select value={selectedPropertyType} onValueChange={onPropertyTypeChange}>
+        <SelectTrigger className="w-full sm:w-40">
+         <SelectValue placeholder="Type" />
+        </SelectTrigger>
+        <SelectContent>
+         <SelectItem value="all">All Types</SelectItem>
+         <SelectItem value="Apartment">Apartment</SelectItem>
+         <SelectItem value="Studio">Studio</SelectItem>
+         <SelectItem value="House">House</SelectItem>
+        </SelectContent>
+       </Select>
+      </div>
 
-    if (loading) {
-        return (
-            <div className="min-h-screen bg-gray-50">
-                <FlexHeader />
-                <div className="flex items-center justify-center py-20">
-                    <RefreshCw className="h-8 w-8 animate-spin text-[#284E4C]" />
-                    <span className="ml-3 text-lg text-gray-600">
-                        Loading property performance data...
-                    </span>
-                </div>
-                <FlexFooter />
-            </div>
-        );
-    }
+      <div className="flex items-center gap-4">
+       <div className="flex items-center gap-2">
+        <span className="text-sm text-gray-600">Sort by:</span>
+        <Select value={sortBy} onValueChange={onSortByChange}>
+         <SelectTrigger className="w-32">
+          <SelectValue />
+         </SelectTrigger>
+         <SelectContent>
+          <SelectItem value="rating">Rating</SelectItem>
+          <SelectItem value="revenue">Revenue</SelectItem>
+          <SelectItem value="occupancy">Occupancy</SelectItem>
+          <SelectItem value="reviews">Reviews</SelectItem>
+         </SelectContent>
+        </Select>
+       </div>
 
-    return (
-        <div className="min-h-screen bg-gray-50">
-            <FlexHeader />
+       <Button
+        variant="outline"
+        size="sm"
+        onClick={onSortOrderChange}
+       >
+        {sortOrder === "asc" ? <SortAsc className="h-4 w-4" /> : <SortDesc className="h-4 w-4" />}
+       </Button>
+      </div>
+     </div>
+    </div>
 
-            {/* Hero Section */}
-            <div className="bg-gradient-to-r from-[#284E4C] to-[#1a3531] py-16">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-                        <div className="mb-6 md:mb-0">
-                            <Link href="/dashboard">
-                                <Button
-                                    variant="outline"
-                                    className="mb-4 bg-white/10 border-white/20 text-white hover:bg-white/20"
-                                >
-                                    <ArrowLeft className="h-4 w-4 mr-2" />
-                                    Back to Dashboard
-                                </Button>
-                            </Link>
-                            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
-                                Property Performance Manager
-                            </h1>
-                            <p className="text-lg sm:text-xl text-slate-200 max-w-3xl">
-                                Monitor, analyze, and optimize the performance
-                                of all properties with comprehensive insights,
-                                trend analysis, and review management.
-                            </p>
-                        </div>
-                        <div className="flex gap-3">
-                            <Button
-                                className="bg-white/10 hover:bg-white/20 border-white/20"
-                                onClick={fetchReviews}
-                                disabled={refreshing}
-                            >
-                                <RefreshCw
-                                    className={`h-4 w-4 mr-2 ${
-                                        refreshing ? "animate-spin" : ""
-                                    }`}
-                                />
-                                Refresh Data
-                            </Button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* Overview Stats */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-10">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 lg:gap-6 mb-8">
-                    <Card className="bg-white shadow-lg border-0">
-                        <CardContent className="p-6">
-                            <div className="flex items-center">
-                                <div className="flex-shrink-0">
-                                    <Home className="h-8 w-8 text-[#284E4C]" />
-                                </div>
-                                <div className="ml-4">
-                                    <p className="text-sm font-medium text-gray-500">
-                                        Total Properties
-                                    </p>
-                                    <p className="text-2xl font-bold text-gray-900">
-                                        {overviewStats.totalProperties}
-                                    </p>
-                                </div>
-                            </div>
-                        </CardContent>
-                    </Card>
-
-                    <Card className="bg-white shadow-lg border-0">
-                        <CardContent className="p-6">
-                            <div className="flex items-center">
-                                <div className="flex-shrink-0">
-                                    <Star className="h-8 w-8 text-yellow-500" />
-                                </div>
-                                <div className="ml-4">
-                                    <p className="text-sm font-medium text-gray-500">
-                                        Average Rating
-                                    </p>
-                                    <p className="text-2xl font-bold text-gray-900">
-                                        {overviewStats.averageRating.toFixed(1)}
-                                    </p>
-                                </div>
-                            </div>
-                        </CardContent>
-                    </Card>
-
-                    <Card className="bg-white shadow-lg border-0">
-                        <CardContent className="p-6">
-                            <div className="flex items-center">
-                                <div className="flex-shrink-0">
-                                    <TrendingUp className="h-8 w-8 text-green-500" />
-                                </div>
-                                <div className="ml-4">
-                                    <p className="text-sm font-medium text-gray-500">
-                                        High Performing
-                                    </p>
-                                    <p className="text-2xl font-bold text-gray-900">
-                                        {overviewStats.highPerformingProperties}
-                                    </p>
-                                </div>
-                            </div>
-                        </CardContent>
-                    </Card>
-
-                    <Card className="bg-white shadow-lg border-0">
-                        <CardContent className="p-6">
-                            <div className="flex items-center">
-                                <div className="flex-shrink-0">
-                                    <AlertTriangle className="h-8 w-8 text-red-500" />
-                                </div>
-                                <div className="ml-4">
-                                    <p className="text-sm font-medium text-gray-500">
-                                        Needs Attention
-                                    </p>
-                                    <p className="text-2xl font-bold text-gray-900">
-                                        {overviewStats.needsAttention}
-                                    </p>
-                                </div>
-                            </div>
-                        </CardContent>
-                    </Card>
-
-                    <Card className="bg-white shadow-lg border-0">
-                        <CardContent className="p-6">
-                            <div className="flex items-center">
-                                <div className="flex-shrink-0">
-                                    <TrendingDown className="h-8 w-8 text-[#284E4C]" />
-                                </div>
-                                <div className="ml-4">
-                                    <p className="text-sm font-medium text-gray-500">
-                                        Total Reviews
-                                    </p>
-                                    <p className="text-2xl font-bold text-gray-900">
-                                        {overviewStats.totalReviews}
-                                    </p>
-                                </div>
-                            </div>
-                        </CardContent>
-                    </Card>
-                </div>
-
-                {/* Main Performance Manager Component */}
-                <PropertyPerformanceManager reviews={reviews} />
-            </div>
-
-            <FlexFooter />
+    {/* Properties Grid */}
+    <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mb-8">
+     {properties.map((property) => (
+      <Card key={property.id} className="hover:shadow-lg transition-shadow">
+       <CardHeader className="pb-3">
+        <div className="flex items-start justify-between">
+         <div className="flex-1">
+          <CardTitle className="text-lg font-semibold text-gray-900 mb-1">
+           {property.name}
+          </CardTitle>
+          <div className="flex items-center text-sm text-gray-600 mb-2">
+           <MapPin className="h-4 w-4 mr-1" />
+           {property.location}
+          </div>
+          <div className="flex items-center gap-2">
+           <Badge variant="outline" className="text-xs">
+            {property.city}
+           </Badge>
+           <Badge variant="outline" className="text-xs">
+            {property.type}
+           </Badge>
+           <Badge
+            variant={property.status === 'Active' ? 'default' : 'secondary'}
+            className="text-xs"
+           >
+            {property.status}
+           </Badge>
+          </div>
+         </div>
+         <div className="text-right">
+          <div className="flex items-center text-yellow-600">
+           <Star className="h-4 w-4 fill-current mr-1" />
+           <span className="font-semibold">{property.rating}</span>
+          </div>
+          <p className="text-xs text-gray-500">{property.totalReviews} reviews</p>
+         </div>
         </div>
-    );
+       </CardHeader>
+       <CardContent>
+        {/* Performance Metrics */}
+        <div className="grid grid-cols-2 gap-4 mb-4">
+         <div>
+          <p className="text-xs text-gray-500">Total Bookings</p>
+          <p className="font-semibold text-gray-900">{property.totalBookings}</p>
+          <p className={`text-xs flex items-center ${property.bookingsChange >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+           {property.bookingsChange >= 0 ? <TrendingUp className="h-3 w-3 mr-1" /> : <TrendingDown className="h-3 w-3 mr-1" />}
+           {Math.abs(property.bookingsChange)}%
+          </p>
+         </div>
+         <div>
+          <p className="text-xs text-gray-500">Cancellations</p>
+          <p className="font-semibold text-gray-900">{property.cancellations}</p>
+          <p className="text-xs text-gray-500">{property.cancellationRate}% rate</p>
+         </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4 mb-4">
+         <div>
+          <p className="text-xs text-gray-500">Net Profit</p>
+          <p className="font-semibold text-gray-900">£{property.netProfit.toLocaleString()}</p>
+          <p className="text-xs text-green-600">{property.profitMargin}% margin</p>
+         </div>
+         <div>
+          <p className="text-xs text-gray-500">Avg Stay</p>
+          <p className="font-semibold text-gray-900">{property.averageStayLength} days</p>
+          <p className="text-xs text-gray-500">per booking</p>
+         </div>
+        </div>
+
+        {/* Category Ratings */}
+        <div className="mb-4">
+         <p className="text-xs text-gray-500 mb-2">Category Ratings</p>
+         <div className="grid grid-cols-2 gap-2">
+          <div className="flex justify-between items-center">
+           <span className="text-xs text-gray-600">Cleanliness</span>
+           <span className="text-xs font-semibold text-gray-900">{property.categoryRatings.cleanliness}/10</span>
+          </div>
+          <div className="flex justify-between items-center">
+           <span className="text-xs text-gray-600">Communication</span>
+           <span className="text-xs font-semibold text-gray-900">{property.categoryRatings.communication}/10</span>
+          </div>
+          <div className="flex justify-between items-center">
+           <span className="text-xs text-gray-600">Location</span>
+           <span className="text-xs font-semibold text-gray-900">{property.categoryRatings.location}/10</span>
+          </div>
+          <div className="flex justify-between items-center">
+           <span className="text-xs text-gray-600">Check-in</span>
+           <span className="text-xs font-semibold text-gray-900">{property.categoryRatings.checkin}/10</span>
+          </div>
+          <div className="flex justify-between items-center">
+           <span className="text-xs text-gray-600">Accuracy</span>
+           <span className="text-xs font-semibold text-gray-900">{property.categoryRatings.accuracy}/10</span>
+          </div>
+          <div className="flex justify-between items-center">
+           <span className="text-xs text-gray-600">Value</span>
+           <span className="text-xs font-semibold text-gray-900">{property.categoryRatings.value}/10</span>
+          </div>
+         </div>
+        </div>
+
+        <div className="flex items-center justify-between">
+         <div className="text-sm text-gray-600">
+          Next: {new Date(property.nextBooking).toLocaleDateString()}
+         </div>
+         <Button variant="outline" size="sm">
+          View Details
+         </Button>
+        </div>
+       </CardContent>
+      </Card>
+     ))}
+    </div>
+   </div>
+  </div>
+ );
 }
