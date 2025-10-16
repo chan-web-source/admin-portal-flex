@@ -1,0 +1,231 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+    /* Updated to use yellowish backgrounds and white foregrounds, removed pinkish colors */
+    --background: #fffbf0;
+    --foreground: #020817;
+    --card: #ffffff;
+    --card-foreground: #020817;
+    --popover: #ffffff;
+    --popover-foreground: #020817;
+    --primary: #020817;
+    --primary-foreground: #ffffff;
+    --secondary: #fffbf0;
+    --secondary-foreground: #020817;
+    --muted: #fffbf0;
+    --muted-foreground: #4b5563;
+    --accent: #22c55e;
+    --accent-foreground: #ffffff;
+    --destructive: #dc2626;
+    --destructive-foreground: #ffffff;
+    --border: #e5e7eb;
+    --input: #ffffff;
+    --ring: #020817;
+    --chart-1: #020817;
+    --chart-2: #22c55e;
+    --chart-3: #16a34a;
+    --chart-4: #4b5563;
+    --chart-5: #fffbf0;
+    --radius: 0.75rem;
+    --sidebar: #ffffff;
+    --sidebar-foreground: #020817;
+    --sidebar-primary: #020817;
+    --sidebar-primary-foreground: #ffffff;
+    --sidebar-accent: #fffbf0;
+    --sidebar-accent-foreground: #020817;
+    --sidebar-border: #e5e7eb;
+    --sidebar-ring: #020817;
+}
+
+/* Custom animations for premium feel */
+@keyframes shimmer {
+    0% {
+        background-position: -200px 0;
+    }
+    100% {
+        background-position: calc(200px + 100%) 0;
+    }
+}
+
+@keyframes float {
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes glow {
+    0%,
+    100% {
+        box-shadow: 0 0 20px rgba(99, 102, 241, 0.1);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(99, 102, 241, 0.2);
+    }
+}
+
+/* Glassmorphism utility classes */
+.glass {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.glass-dark {
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Premium gradient backgrounds */
+.premium-gradient {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.premium-gradient-2 {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.premium-gradient-3 {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+.dark {
+    /* Updated dark mode to complement the new light color scheme */
+    --background: #020817;
+    --foreground: #ffffff;
+    --card: #0f172a;
+    --card-foreground: #ffffff;
+    --popover: #0f172a;
+    --popover-foreground: #ffffff;
+    --primary: #ffffff;
+    --primary-foreground: #020817;
+    --secondary: #1e293b;
+    --secondary-foreground: #ffffff;
+    --muted: #334155;
+    --muted-foreground: #94a3b8;
+    --accent: #22c55e;
+    --accent-foreground: #020817;
+    --destructive: #dc2626;
+    --destructive-foreground: #ffffff;
+    --border: #334155;
+    --input: #1e293b;
+    --ring: #ffffff;
+    --chart-1: #ffffff;
+    --chart-2: #22c55e;
+    --chart-3: #16a34a;
+    --chart-4: #94a3b8;
+    --chart-5: #1e293b;
+    --sidebar: #0f172a;
+    --sidebar-foreground: #ffffff;
+    --sidebar-primary: #ffffff;
+    --sidebar-primary-foreground: #020817;
+    --sidebar-accent: #1e293b;
+    --sidebar-accent-foreground: #ffffff;
+    --sidebar-border: #334155;
+    --sidebar-ring: #ffffff;
+}
+
+@theme inline {
+    --font-sans: var(--font-geist-sans);
+    --font-mono: var(--font-geist-mono);
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+    --color-chart-1: var(--chart-1);
+    --color-chart-2: var(--chart-2);
+    --color-chart-3: var(--chart-3);
+    --color-chart-4: var(--chart-4);
+    --color-chart-5: var(--chart-5);
+    --radius-sm: calc(var(--radius) - 4px);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) + 4px);
+    --color-sidebar: var(--sidebar);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+    * {
+        @apply border-border outline-ring/50;
+    }
+    body {
+        @apply bg-background text-foreground;
+    }
+}
+
+/* Updated custom styles to use yellowish background and white foregrounds */
+.flex-hero-gradient {
+    background: linear-gradient(135deg, #fffbf0 0%, #fff8e1 100%);
+}
+
+.flex-text-balance {
+    text-wrap: balance;
+}
+
+/* Updated Flex Living brand-specific utility classes with new color scheme */
+.flex-primary {
+    background-color: #020817;
+    color: #ffffff;
+}
+
+.flex-accent {
+    background-color: #22c55e;
+    color: #ffffff;
+}
+
+.flex-neutral {
+    background-color: #ffffff;
+    color: #020817;
+}
