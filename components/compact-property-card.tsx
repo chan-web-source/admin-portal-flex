@@ -45,19 +45,18 @@ export function CompactPropertyCard({
         return Array.from({ length: 5 }, (_, i) => (
             <Star
                 key={i}
-                className={`h-3 w-3 ${
-                    i < Math.floor(rating)
+                className={`h-3 w-3 ${i < Math.floor(rating)
                         ? "fill-yellow-400 text-yellow-400"
                         : i < rating
-                        ? "fill-yellow-200 text-yellow-400"
-                        : "text-gray-300"
-                }`}
+                            ? "fill-yellow-200 text-yellow-400"
+                            : "text-gray-300"
+                    }`}
             />
         ));
     };
 
     return (
-        <Card className="overflow-hidden bg-white shadow-sm hover:shadow-md transition-all duration-200 group border border-gray-200">
+        <Card className="overflow-hidden bg-white shadow-sm hover:shadow-md transition-all duration-200 group">
             <div className="flex">
                 {/* Image Section */}
                 <div className="relative w-24 h-20 sm:w-32 sm:h-24 flex-shrink-0">
@@ -86,11 +85,10 @@ export function CompactPropertyCard({
                         className="absolute top-1 right-1 p-1 bg-white/80 hover:bg-white rounded-full shadow-sm transition-colors"
                     >
                         <Heart
-                            className={`h-3 w-3 ${
-                                isLiked
+                            className={`h-3 w-3 ${isLiked
                                     ? "fill-red-500 text-red-500"
                                     : "text-gray-600"
-                            }`}
+                                }`}
                         />
                     </button>
                 </div>

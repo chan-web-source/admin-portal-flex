@@ -67,7 +67,7 @@ export default function PropertiesPage({
   <div className="bg-[#fffdf6]">
    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     {/* Filters and Search */}
-    <div className="bg-white rounded-lg border border-gray-200 p-6 mb-6">
+    <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
       <div className="flex flex-col sm:flex-row gap-4">
        <div className="relative">
@@ -135,7 +135,7 @@ export default function PropertiesPage({
     {/* Properties Grid */}
     <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mb-8">
      {properties.map((property) => (
-      <Card key={property.id} className="hover:shadow-lg transition-shadow">
+      <Card key={property.id} className="bg-white shadow-lg hover:shadow-xl transition-shadow">
        <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
          <div className="flex-1">

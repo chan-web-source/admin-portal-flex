@@ -30,7 +30,7 @@ export default function ReviewsPage({ reviews = [], onReviewToggle }: ReviewsPag
      <CardContent>
       <div className="space-y-4">
        {approvedReviews.map((review) => (
-        <div key={review.id} className="border border-gray-200 rounded-lg p-4">
+        <div key={review.id} className="bg-white shadow-lg rounded-lg p-4">
          <div className="flex items-start justify-between">
           <div className="flex-1">
            <div className="flex items-center gap-2 mb-2">

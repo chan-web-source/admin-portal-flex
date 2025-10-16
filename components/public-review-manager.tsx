@@ -227,8 +227,7 @@ export function PublicReviewManager({
 
             if (success) {
                 toast.success(
-                    `${selectedReviews.size} review(s) ${
-                        shouldDisplay ? "made public" : "hidden from public"
+                    `${selectedReviews.size} review(s) ${shouldDisplay ? "made public" : "hidden from public"
                     }`
                 );
                 setSelectedReviews(new Set());
@@ -279,11 +278,10 @@ export function PublicReviewManager({
                 {[...Array(5)].map((_, i) => (
                     <Star
                         key={i}
-                        className={`h-4 w-4 ${
-                            i < Math.floor(rating)
+                        className={`h-4 w-4 ${i < Math.floor(rating)
                                 ? "text-yellow-400 fill-current"
                                 : "text-gray-300"
-                        }`}
+                            }`}
                     />
                 ))}
                 <span className="ml-2 text-sm font-medium">
@@ -361,9 +359,8 @@ export function PublicReviewManager({
                                         size="sm"
                                     >
                                         <RefreshCw
-                                            className={`h-4 w-4 mr-2 ${
-                                                refreshing ? "animate-spin" : ""
-                                            }`}
+                                            className={`h-4 w-4 mr-2 ${refreshing ? "animate-spin" : ""
+                                                }`}
                                         />
                                         {refreshing
                                             ? "Refreshing..."
@@ -476,7 +473,7 @@ export function PublicReviewManager({
 
                                 {/* Bulk Actions */}
                                 {selectedReviews.size > 0 && (
-                                    <div className="flex items-center justify-between p-4 bg-blue-50 rounded-lg border border-blue-200">
+                                    <div className="flex items-center justify-between p-4 bg-blue-50 rounded-lg shadow-sm">
                                         <div className="flex items-center gap-4">
                                             <span className="text-sm font-medium text-blue-900">
                                                 {selectedReviews.size} review(s)
@@ -542,13 +539,13 @@ export function PublicReviewManager({
                                             onClick={handleSelectAll}
                                         >
                                             {selectedReviews.size ===
-                                            filteredReviews.length ? (
+                                                filteredReviews.length ? (
                                                 <Square className="h-4 w-4 mr-2" />
                                             ) : (
                                                 <CheckSquare className="h-4 w-4 mr-2" />
                                             )}
                                             {selectedReviews.size ===
-                                            filteredReviews.length
+                                                filteredReviews.length
                                                 ? "Deselect All"
                                                 : "Select All"}
                                         </Button>
@@ -575,11 +572,10 @@ export function PublicReviewManager({
                         {filteredReviews.map((review) => (
                             <Card
                                 key={review.id}
-                                className={`transition-all ${
-                                    selectedReviews.has(review.id)
+                                className={`transition-all ${selectedReviews.has(review.id)
                                         ? "ring-2 ring-blue-500 border-blue-200"
                                         : "hover:shadow-md"
-                                }`}
+                                    }`}
                             >
                                 <CardHeader className="pb-3">
                                     <div className="flex items-start justify-between">
@@ -655,24 +651,24 @@ export function PublicReviewManager({
                                     {/* Category Scores */}
                                     {Object.keys(review.categories).length >
                                         0 && (
-                                        <div className="grid grid-cols-2 gap-2 text-xs">
-                                            {Object.entries(review.categories)
-                                                .slice(0, 4)
-                                                .map(([category, score]) => (
-                                                    <div
-                                                        key={category}
-                                                        className="flex justify-between"
-                                                    >
-                                                        <span className="capitalize text-gray-600">
-                                                            {category}:
-                                                        </span>
-                                                        <span className="font-medium">
-                                                            {score}/5
-                                                        </span>
-                                                    </div>
-                                                ))}
-                                        </div>
-                                    )}
+                                            <div className="grid grid-cols-2 gap-2 text-xs">
+                                                {Object.entries(review.categories)
+                                                    .slice(0, 4)
+                                                    .map(([category, score]) => (
+                                                        <div
+                                                            key={category}
+                                                            className="flex justify-between"
+                                                        >
+                                                            <span className="capitalize text-gray-600">
+                                                                {category}:
+                                                            </span>
+                                                            <span className="font-medium">
+                                                                {score}/5
+                                                            </span>
+                                                        </div>
+                                                    ))}
+                                            </div>
+                                        )}
 
                                     {/* Actions */}
                                     <div className="flex items-center justify-between pt-3 border-t">
@@ -733,56 +729,55 @@ export function PublicReviewManager({
                                                                     previewReview.categories
                                                                 ).length >
                                                                     0 && (
-                                                                    <div className="grid grid-cols-2 gap-3 pt-4 border-t">
-                                                                        {Object.entries(
-                                                                            previewReview.categories
-                                                                        ).map(
-                                                                            ([
-                                                                                category,
-                                                                                score,
-                                                                            ]) => (
-                                                                                <div
-                                                                                    key={
-                                                                                        category
-                                                                                    }
-                                                                                    className="flex justify-between"
-                                                                                >
-                                                                                    <span className="capitalize text-sm">
-                                                                                        {
+                                                                        <div className="grid grid-cols-2 gap-3 pt-4 border-t">
+                                                                            {Object.entries(
+                                                                                previewReview.categories
+                                                                            ).map(
+                                                                                ([
+                                                                                    category,
+                                                                                    score,
+                                                                                ]) => (
+                                                                                    <div
+                                                                                        key={
                                                                                             category
                                                                                         }
-                                                                                    </span>
-                                                                                    <div className="flex items-center">
-                                                                                        {[
-                                                                                            ...Array(
-                                                                                                5
-                                                                                            ),
-                                                                                        ].map(
-                                                                                            (
-                                                                                                _,
-                                                                                                i
-                                                                                            ) => (
-                                                                                                <Star
-                                                                                                    key={
-                                                                                                        i
-                                                                                                    }
-                                                                                                    className={`h-3 w-3 ${
-                                                                                                        i <
-                                                                                                        Math.floor(
-                                                                                                            score
-                                                                                                        )
-                                                                                                            ? "text-yellow-400 fill-current"
-                                                                                                            : "text-gray-300"
-                                                                                                    }`}
-                                                                                                />
-                                                                                            )
-                                                                                        )}
+                                                                                        className="flex justify-between"
+                                                                                    >
+                                                                                        <span className="capitalize text-sm">
+                                                                                            {
+                                                                                                category
+                                                                                            }
+                                                                                        </span>
+                                                                                        <div className="flex items-center">
+                                                                                            {[
+                                                                                                ...Array(
+                                                                                                    5
+                                                                                                ),
+                                                                                            ].map(
+                                                                                                (
+                                                                                                    _,
+                                                                                                    i
+                                                                                                ) => (
+                                                                                                    <Star
+                                                                                                        key={
+                                                                                                            i
+                                                                                                        }
+                                                                                                        className={`h-3 w-3 ${i <
+                                                                                                                Math.floor(
+                                                                                                                    score
+                                                                                                                )
+                                                                                                                ? "text-yellow-400 fill-current"
+                                                                                                                : "text-gray-300"
+                                                                                                            }`}
+                                                                                                    />
+                                                                                                )
+                                                                                            )}
+                                                                                        </div>
                                                                                     </div>
-                                                                                </div>
-                                                                            )
-                                                                        )}
-                                                                    </div>
-                                                                )}
+                                                                                )
+                                                                            )}
+                                                                        </div>
+                                                                    )}
                                                             </div>
                                                         </div>
                                                     )}

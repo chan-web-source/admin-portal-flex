@@ -70,11 +70,10 @@ export function ReviewCard({ review, onApprove }: ReviewCardProps) {
         return Array.from({ length: 5 }, (_, i) => (
             <Star
                 key={i}
-                className={`h-3 w-3 ${
-                    i < rating
+                className={`h-3 w-3 ${i < rating
                         ? "fill-yellow-400 text-yellow-400"
                         : "text-gray-300"
-                }`}
+                    }`}
             />
         ));
     };
@@ -117,12 +116,12 @@ export function ReviewCard({ review, onApprove }: ReviewCardProps) {
                                 <span>
                                     {review.submittedAt
                                         ? new Date(
-                                              review.submittedAt
-                                          ).toLocaleDateString("en-US", {
-                                              month: "short",
-                                              day: "numeric",
-                                              year: "numeric",
-                                          })
+                                            review.submittedAt
+                                        ).toLocaleDateString("en-US", {
+                                            month: "short",
+                                            day: "numeric",
+                                            year: "numeric",
+                                        })
                                         : "Date not available"}
                                 </span>
                             </div>
@@ -170,7 +169,7 @@ export function ReviewCard({ review, onApprove }: ReviewCardProps) {
                                 ([category, rating]) => (
                                     <div
                                         key={category}
-                                        className="group bg-gradient-to-r from-slate-50 to-slate-100 hover:from-indigo-50 hover:to-purple-50 p-4 rounded-xl border border-slate-200 hover:border-indigo-200 transition-all duration-200"
+                                        className="group bg-gradient-to-r from-slate-50 to-slate-100 hover:from-indigo-50 hover:to-purple-50 p-4 rounded-xl shadow-sm hover:shadow-md transition-all duration-200"
                                     >
                                         <div className="flex items-center justify-between">
                                             <span className="capitalize font-medium text-slate-700 group-hover:text-slate-900 transition-colors">
@@ -194,7 +193,7 @@ export function ReviewCard({ review, onApprove }: ReviewCardProps) {
 
                 {/* Manager Notes */}
                 {review.managerNotes && (
-                    <div className="bg-gradient-to-r from-amber-50 to-orange-50 p-4 rounded-xl border border-amber-200">
+                    <div className="bg-gradient-to-r from-amber-50 to-orange-50 p-4 rounded-xl shadow-sm">
                         <div className="flex items-center gap-2 mb-3">
                             <div className="w-8 h-8 bg-gradient-to-br from-amber-500 to-orange-600 rounded-lg flex items-center justify-center">
                                 <MessageSquare className="h-4 w-4 text-white" />
@@ -219,11 +218,10 @@ export function ReviewCard({ review, onApprove }: ReviewCardProps) {
                             <Button
                                 variant="outline"
                                 size="sm"
-                                className={`flex-1 transition-all duration-200 ${
-                                    review.isApproved
+                                className={`flex-1 transition-all duration-200 ${review.isApproved
                                         ? "bg-gradient-to-r from-green-50 to-emerald-50 border-green-200 text-green-700 hover:from-green-100 hover:to-emerald-100"
                                         : "bg-white border-slate-300 text-slate-700 hover:bg-gradient-to-r hover:from-green-50 hover:to-emerald-50 hover:border-green-200 hover:text-green-700"
-                                }`}
+                                    }`}
                                 onClick={() => {
                                     setPendingAction("approve");
                                     setShowApprovalDialog(true);
@@ -291,8 +289,8 @@ export function ReviewCard({ review, onApprove }: ReviewCardProps) {
                                     {isApproving
                                         ? "Processing..."
                                         : pendingAction === "approve"
-                                        ? "Approve"
-                                        : "Reject"}
+                                            ? "Approve"
+                                            : "Reject"}
                                 </Button>
                             </DialogFooter>
                         </DialogContent>
@@ -301,11 +299,10 @@ export function ReviewCard({ review, onApprove }: ReviewCardProps) {
                     <Button
                         variant="outline"
                         size="sm"
-                        className={`flex-1 transition-all duration-200 ${
-                            review.status === "rejected"
+                        className={`flex-1 transition-all duration-200 ${review.status === "rejected"
                                 ? "bg-gradient-to-r from-red-50 to-rose-50 border-red-200 text-red-700 hover:from-red-100 hover:to-rose-100"
                                 : "bg-white border-slate-300 text-slate-700 hover:bg-gradient-to-r hover:from-red-50 hover:to-rose-50 hover:border-red-200 hover:text-red-700"
-                        }`}
+                            }`}
                         onClick={() => {
                             setPendingAction("reject");
                             setShowApprovalDialog(true);

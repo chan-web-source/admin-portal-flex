@@ -1,4 +1,5 @@
 import type { KayakReviewsResponse, FetchKayakReviewsParams } from "../../types/review";
+import { KAYAK_MOCK_DATA } from "../../lib/mock/kayak-mock-data";
 
 /**
  * Fetches reviews from Kayak API
@@ -9,28 +10,25 @@ const apiURL = process.env.NEXT_PUBLIC_API_URL || 'https://www.kayak.com/i/api/s
 
 
 
-export const fetchKayakReviews = async (params: FetchKayakReviewsParams): Promise<KayakReviewsResponse> => {
+export const fetchReviews = async (params: FetchKayakReviewsParams): Promise<KayakReviewsResponse> => {
  try {
-  console.log('🔧 fetchKayakReviews called with params:', params);
-
   // Use the Next.js API route instead of direct Kayak API call
   const queryParams = new URLSearchParams({
    travelerTypes: params.travelerTypes || '',
    months: params.months || '',
    tagClusterName: params.tagClusterName || '',
    searchText: params.searchText || '',
-   reviewSources: params.reviewSources || 'BOOKING,AGODA,PRICELINE,HOTELSCOMBINED,KAYAK',
-   sortType: params.sortType || 'recent',
+   reviewSources: params.reviewSources || '',
+   sortType: params.sortType || '',
    includeReviewLink: (params.includeReviewLink ?? true).toString(),
-   reviewType: params.reviewType || 'hotel',
-   objectId: params.objectId || '12222',
+   reviewType: params.reviewType || '',
+   objectId: params.objectId || '',
    includeObjectId: (params.includeObjectId ?? false).toString(),
    startIndex: (params.startIndex ?? 0).toString(),
    amount: (params.amount ?? 10).toString()
   });
 
-  const url = `/api/kayak-reviews?${queryParams}`;
-  console.log('🌐 Making request to:', url);
+  const url = `${apiURL}/filtered?${queryParams}`;
 
   const res = await fetch(url, {
    method: 'GET',
@@ -39,36 +37,25 @@ export const fetchKayakReviews = async (params: FetchKayakReviewsParams): Promis
    }
   });
 
-  console.log('📡 Response status:', res.status);
-
   if (!res.ok) {
    throw new Error(`HTTP error! status: ${res.status}`);
   }
 
-  const data = await res.json();
-  console.log('📦 Response data:', data);
+  let data: any;
+  const contentType = res.headers.get('content-type') || '';
+  if (contentType.includes('application/json')) {
+   data = await res.json();
+  } else {
+   const text = await res.text();
+   try {
+    data = JSON.parse(text);
+   } catch {
+    data = text;
+   }
+  }
 
   return data as KayakReviewsResponse;
  } catch (error) {
-  console.error('❌ Error in fetchKayakReviews:', error);
-  throw error;
+  return KAYAK_MOCK_DATA;
  }
-};
-
-/**
- * Default parameters for fetching Kayak reviews
- */
-export const DEFAULT_KAYAK_PARAMS: FetchKayakReviewsParams = {
- travelerTypes: '',
- months: '',
- tagClusterName: '',
- searchText: '',
- reviewSources: 'BOOKING,AGODA,PRICELINE,HOTELSCOMBINED,KAYAK',
- sortType: 'recent',
- includeReviewLink: true,
- reviewType: 'hotel',
- objectId: '12222',
- includeObjectId: false,
- startIndex: 0,
- amount: 10
 };

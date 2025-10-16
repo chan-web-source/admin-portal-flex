@@ -23,6 +23,7 @@ import { AnalyticsDashboard } from "@/components/analytics-dashboard";
 import { mockProperties, mockReviews, mockDashboardStats } from "../../lib/mock-dashboard-data";
 import type { PropertyData, ReviewData, DashboardStats } from "../../types/dashboard";
 import { mockAnalyticsData } from "../../lib/mock-analytics-data";
+import { toast } from "@/hooks/use-toast";
 
 export default function ManagerDashboard() {
     const [timeRange, setTimeRange] = useState("all");
@@ -103,6 +104,7 @@ export default function ManagerDashboard() {
     };
 
     const handleReviewToggle = (reviewId: string, isPublic: boolean) => {
+        //TODO: Set API Update handling when API is ready
         setReviews(prev => prev.map(review =>
             review.id === reviewId ? { ...review, isPublic } : review
         ));
@@ -123,10 +125,10 @@ export default function ManagerDashboard() {
                 <FlexPanel isOpen={isSidebarOpen} onToggle={toggleSidebar} />
 
                 {/* Main Content */}
-                <div className={`flex-1 transition-all duration-300 ease-in-out ${isSidebarOpen ? 'lg:ml-64' : 'lg:ml-0'
+                <div className={`flex-1 transition-all duration-300 ease-in-out overflow-y-auto h-screen ${isSidebarOpen ? 'ml-0 md:ml-64 lg:ml-64' : 'ml-0'
                     }`}>
                     {/* Dashboard Header */}
-                    <div className="bg-[#fffdf6] shadow-lg border-b border-gray-200">
+                    <div className="bg-[#fffdf6] shadow-lg">
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
                             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
                                 <div>
@@ -189,7 +191,7 @@ export default function ManagerDashboard() {
                             </div>
 
                             {/* Performance Filters */}
-                            <div className="bg-white rounded-lg border border-gray-200 p-6 mb-6">
+                            <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
                                 <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                                     <div className="flex flex-col sm:flex-row gap-4">
                                         <Select value={performanceTimeRange} onValueChange={setPerformanceTimeRange}>
@@ -259,7 +261,7 @@ export default function ManagerDashboard() {
                             {/* Performance Charts */}
                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
                                 {/* Revenue Performance Chart */}
-                                <div className="bg-white rounded-lg border border-gray-200 p-6">
+                                <div className="bg-white rounded-lg shadow-lg p-6">
                                     <h3 className="text-lg font-semibold text-gray-900 mb-4">Revenue Performance</h3>
                                     <div className="h-64 flex items-center justify-center">
                                         <div className="text-center">
@@ -270,7 +272,7 @@ export default function ManagerDashboard() {
                                 </div>
 
                                 {/* Rating Distribution Chart */}
-                                <div className="bg-white rounded-lg border border-gray-200 p-6">
+                                <div className="bg-white rounded-lg shadow-lg p-6">
                                     <h3 className="text-lg font-semibold text-gray-900 mb-4">Rating Distribution</h3>
                                     <div className="h-64 flex items-center justify-center">
                                         <div className="text-center">
@@ -282,8 +284,8 @@ export default function ManagerDashboard() {
                             </div>
 
                             {/* Performance Metrics Table */}
-                            <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
-                                <div className="px-6 py-4 border-b border-gray-200">
+                            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+                                <div className="px-6 py-4">
                                     <h3 className="text-lg font-semibold text-gray-900">Performance Metrics</h3>
                                 </div>
                                 <div className="overflow-x-auto">
