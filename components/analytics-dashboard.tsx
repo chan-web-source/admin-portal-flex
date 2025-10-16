@@ -19,7 +19,7 @@ import {
     Legend,
 } from "recharts";
 import { AlertTriangle, Star, Users, MessageSquare, Info } from "lucide-react";
-import type { ReviewAnalytics } from "@/types/review";
+import type { ReviewAnalytics } from "../types/review";
 
 interface AnalyticsDashboardProps {
     analytics: ReviewAnalytics;
@@ -109,10 +109,10 @@ export function AnalyticsDashboard({
                                 {averageRating >= 8.5
                                     ? "Excellent"
                                     : averageRating >= 7.5
-                                    ? "Good"
-                                    : averageRating >= 6.5
-                                    ? "Fair"
-                                    : "Needs Improvement"}
+                                        ? "Good"
+                                        : averageRating >= 6.5
+                                            ? "Fair"
+                                            : "Needs Improvement"}
                                 ({averageRating.toFixed(1)}/10)
                             </p>
                         </div>
@@ -181,24 +181,13 @@ export function AnalyticsDashboard({
                                 className="font-medium mb-1 font-sans"
                                 style={{ color: "#284E4C" }}
                             >
-                                Primary Channel
+                                Review Platform
                             </h4>
                             <p
-                                className="text-sm font-sans capitalize"
+                                className="text-sm font-sans"
                                 style={{ color: "#5C5C5A" }}
                             >
-                                {Object.entries(channelBreakdown).sort(
-                                    ([, a], [, b]) => b - a
-                                )[0]?.[0] || "N/A"}
-                                (
-                                {(
-                                    ((Object.entries(channelBreakdown).sort(
-                                        ([, a], [, b]) => b - a
-                                    )[0]?.[1] || 0) /
-                                        totalReviews) *
-                                    100
-                                ).toFixed(0)}
-                                %)
+                                The Flex (100%)
                             </p>
                         </div>
                     </div>
@@ -260,11 +249,10 @@ export function AnalyticsDashboard({
                             {Array.from({ length: 5 }, (_, i) => (
                                 <Star
                                     key={i}
-                                    className={`h-3 w-3 ${
-                                        i < Math.floor(averageRating / 2)
-                                            ? "text-yellow-400"
-                                            : "text-gray-300"
-                                    }`}
+                                    className={`h-3 w-3 ${i < Math.floor(averageRating / 2)
+                                        ? "text-yellow-400"
+                                        : "text-gray-300"
+                                        }`}
                                     style={{
                                         fill:
                                             i < Math.floor(averageRating / 2)
@@ -287,7 +275,7 @@ export function AnalyticsDashboard({
                             className="text-sm font-medium font-sans"
                             style={{ color: "#333333" }}
                         >
-                            Top Channel
+                            Platform
                         </CardTitle>
                         <Users
                             className="h-4 w-4"
@@ -296,21 +284,16 @@ export function AnalyticsDashboard({
                     </CardHeader>
                     <CardContent>
                         <div
-                            className="text-2xl font-bold capitalize font-sans"
+                            className="text-2xl font-bold font-sans"
                             style={{ color: "#284E4C" }}
                         >
-                            {Object.entries(channelBreakdown).sort(
-                                ([, a], [, b]) => b - a
-                            )[0]?.[0] || "N/A"}
+                            The Flex
                         </div>
                         <p
                             className="text-xs font-sans"
                             style={{ color: "#5C5C5A" }}
                         >
-                            {Object.entries(channelBreakdown).sort(
-                                ([, a], [, b]) => b - a
-                            )[0]?.[1] || 0}{" "}
-                            reviews
+                            {totalReviews} reviews
                         </p>
                     </CardContent>
                 </Card>
@@ -370,20 +353,19 @@ export function AnalyticsDashboard({
                             {performanceAlerts.map((alert, index) => (
                                 <div
                                     key={index}
-                                    className={`p-3 rounded-lg border-l-4 ${
-                                        alert.priority === "high"
-                                            ? "border-red-500"
-                                            : alert.priority === "medium"
+                                    className={`p-3 rounded-lg border-l-4 ${alert.priority === "high"
+                                        ? "border-red-500"
+                                        : alert.priority === "medium"
                                             ? "border-amber-500"
                                             : "border-blue-500"
-                                    }`}
+                                        }`}
                                     style={{
                                         backgroundColor:
                                             alert.priority === "high"
                                                 ? "#fef2f2"
                                                 : alert.priority === "medium"
-                                                ? "#fffbeb"
-                                                : "#eff6ff",
+                                                    ? "#fffbeb"
+                                                    : "#eff6ff",
                                     }}
                                 >
                                     <div className="flex items-center justify-between">
@@ -787,96 +769,74 @@ export function AnalyticsDashboard({
                 </Card>
             )}
 
-            {/* Channel Breakdown */}
+            {/* Platform Performance */}
             <Card style={{ backgroundColor: "#FFFFFF" }}>
                 <CardHeader>
                     <CardTitle
                         className="font-sans"
                         style={{ color: "#333333" }}
                     >
-                        Review Sources & Performance
+                        Platform Performance
                     </CardTitle>
                     <p
                         className="text-sm font-sans"
                         style={{ color: "#5C5C5A" }}
                     >
-                        Distribution and average ratings by review channel
+                        Review performance on The Flex platform
                     </p>
                 </CardHeader>
                 <CardContent>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        {Object.entries(channelBreakdown).map(
-                            ([channel, count]) => {
-                                // Calculate average rating for this channel
-                                const channelReviews = reviews.filter(
-                                    (r: any) => r.channel === channel
-                                );
-                                const avgRating =
-                                    channelReviews.length > 0
-                                        ? channelReviews.reduce(
-                                              (sum: number, r: any) =>
-                                                  sum + r.overallRating,
-                                              0
-                                          ) / channelReviews.length
-                                        : 0;
-                                const percentage = (count / totalReviews) * 100;
-
-                                return (
-                                    <div
-                                        key={channel}
-                                        className="text-center p-6 rounded-lg border"
-                                        style={{
-                                            borderColor: "#e5e7eb",
-                                            backgroundColor: "#FFF9E9",
-                                        }}
-                                    >
-                                        <div
-                                            className="text-3xl font-bold mb-1 font-sans"
-                                            style={{ color: "#284E4C" }}
-                                        >
-                                            {count}
-                                        </div>
-                                        <div
-                                            className="text-sm font-medium capitalize mb-2 font-sans"
-                                            style={{ color: "#333333" }}
-                                        >
-                                            {channel}
-                                        </div>
-                                        <div className="flex items-center justify-center gap-1 mb-2">
-                                            <Star
-                                                className="h-3 w-3"
-                                                style={{
-                                                    fill: "#fbbf24",
-                                                    color: "#fbbf24",
-                                                }}
-                                            />
-                                            <span
-                                                className="text-sm font-sans"
-                                                style={{ color: "#5C5C5A" }}
-                                            >
-                                                {avgRating.toFixed(1)}/10
-                                            </span>
-                                        </div>
-                                        <div className="mt-3">
-                                            <Progress
-                                                value={percentage}
-                                                className="h-2"
-                                                style={{
-                                                    backgroundColor: "#e5e7eb",
-                                                }}
-                                            />
-                                            <p
-                                                className="text-xs mt-1 font-sans"
-                                                style={{ color: "#5C5C5A" }}
-                                            >
-                                                {percentage.toFixed(1)}% of
-                                                total
-                                            </p>
-                                        </div>
-                                    </div>
-                                );
-                            }
-                        )}
+                        <div
+                            className="text-center p-6 rounded-lg border"
+                            style={{
+                                borderColor: "#e5e7eb",
+                                backgroundColor: "#FFF9E9",
+                            }}
+                        >
+                            <div
+                                className="text-3xl font-bold mb-1 font-sans"
+                                style={{ color: "#284E4C" }}
+                            >
+                                {totalReviews}
+                            </div>
+                            <div
+                                className="text-sm font-medium mb-2 font-sans"
+                                style={{ color: "#333333" }}
+                            >
+                                The Flex
+                            </div>
+                            <div className="flex items-center justify-center gap-1 mb-2">
+                                <Star
+                                    className="h-3 w-3"
+                                    style={{
+                                        fill: "#fbbf24",
+                                        color: "#fbbf24",
+                                    }}
+                                />
+                                <span
+                                    className="text-sm font-sans"
+                                    style={{ color: "#5C5C5A" }}
+                                >
+                                    {averageRating.toFixed(1)}/10
+                                </span>
+                            </div>
+                            <div className="mt-3">
+                                <Progress
+                                    value={100}
+                                    className="h-2"
+                                    style={{
+                                        backgroundColor: "#e5e7eb",
+                                    }}
+                                />
+                                <p
+                                    className="text-xs mt-1 font-sans"
+                                    style={{ color: "#5C5C5A" }}
+                                >
+                                    100% of total reviews
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </CardContent>
             </Card>
