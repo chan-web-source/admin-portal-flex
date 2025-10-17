@@ -159,7 +159,7 @@ export default function ReviewsPage() {
         <FlexPanel isOpen={isSidebarOpen} onToggle={toggleSidebar} />
 
         {/* Main Content */}
-        <div className={`flex-1 transition-all duration-300 ease-in-out overflow-y-auto h-screen ${isSidebarOpen
+        <div className={`flex-1 transition-all duration-300 ease-in-out ${isSidebarOpen
           ? 'ml-0 md:ml-64 lg:ml-64'
           : 'ml-0'
           }`}>
