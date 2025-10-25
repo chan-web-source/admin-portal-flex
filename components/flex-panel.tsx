@@ -18,6 +18,11 @@ export function FlexPanel({ isOpen, onToggle }: FlexPanelProps) {
 
     const navigationItems = [
         {
+            name: "Voice",
+            href: "/voice",
+            icon: MessageSquare,
+        },
+        {
             name: "Dashboard",
             href: "/dashboard",
             icon: LayoutDashboard,
